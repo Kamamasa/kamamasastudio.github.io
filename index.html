@@ -1,9 +1,70 @@
-<!DOCTYPE html>
+<!--公開フィルター-->
 <html>
     <head>
-        <title>KamamasaStudio</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>搭乗口</title>
+        <style>
+            .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+                }
+
+                .modal-content {
+                background: #fff;
+                padding: 30px;
+                border-radius: 10px;
+                text-align: center;
+                }
+
+                .text {
+                    margin-bottom: 30px;
+                    line-height: 0.5;
+                }
+        </style>
     </head>
     <body>
-        <p>loaded</p>
+        <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <div class="text">
+                <h2>サイト建築中に付きアクセス制限中</h2>
+                <h3>パスワードを入力してください</h3>
+            </div>
+            <input type="password" id="password-input" placeholder="パスワード" />
+            <button onclick="checkPassword()">OK</button>
+            <p id="error-msg" style="color: red; display: none;">パスワードが違います</p>
+        </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const inputField = document.getElementById("password-input");
+
+                inputField.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter" || event.keyCode === 13) {
+                        event.preventDefault();
+                        checkPassword();
+                    }
+                });
+            });
+
+            function checkPassword() {
+                const correctPassword = "password";
+                const input = document.getElementById("password-input").value;
+
+                if (input === correctPassword) {
+                    window.location.href = "/index2.html";
+                } else {
+                    document.getElementById("error-msg").style.display = "block";
+                }
+            }
+        </script>
     </body>
 </html>

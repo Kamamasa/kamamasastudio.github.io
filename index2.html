@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>KamamasaStudio</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="KamamasaStudio is a personal website showcasing various projects and works.">
+        <link rel="stylesheet" href="/site_data/css/index.css">
+        <link rel="icon" href="/site_data/img/favicon.ico" type="image/x-icon">
+    </head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHNZ54MRC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-VHNZ54MRC5');
+    </script>
+
+    <body>
+        <header class="top-header">
+            <div class="title">
+                KamamasaStudio
+            </div>
+            <nav class="topnav">
+                    <a id="nowpage">Home</a>
+                    <a href="/site_data/html/about.html">About</a>
+                    <a href="/site_data/html/projects.html">Projects</a>
+                    <a href="/site_data/html/contact.html">Contact</a>
+                    <a href="/site_data/html/testpage.html">TEST</a>
+
+                    <button class="hamburger-close" id="hamburger-close">&#10005;</button>
+                    <button class="hamburger" id="hamburger">&#9776;</button>
+                    <nav class="hamburger-menu" id="hamburger-menu">
+                        <h2>MENU</h2>
+                        <ul>
+                            <li>
+                                <a id="nowpage">HOME</a>
+                                <small class="detail">建築中</small>
+                            </li>
+                            <li>
+                                <a href="/site_data/html/about.html">About</a>
+                                <small class="detail">建築中</small>
+                            </li>
+                            <li>
+                                <a href="/site_data/html/projects.html">Projects</a>
+                                <small class="detail">建築中</small>
+                            </li>
+                            <li>
+                                <a href="/site_data/html/events.html">Events</a>
+                                <small class="detail">建築中</small>
+                            </li>
+                            <li>
+                                <a href="/site_data/html/notes.html">Notes</a>
+                                <small class="detail">建築中</small>
+                            </li>
+                            <li>
+                                <a href="/site_data/html/usage.html">Usage</a>
+                                <small class="detail">建築中</small>
+                            </li>
+                            <li>
+                                <a href="/site_data/html/contact.html">Contact</a>
+                                <small class="detail">建築中</small>
+                            </li>
+                        </ul>
+                    </nav>
+
+            </nav>
+        </header>
+        <div class="menu-overlay" id="menu-overlay"></div>
+
+        <header class="fixed-header">
+            KamamasaStudio
+            <nav class="fixnav">
+                    <a id="nowpage">Home</a>
+                    <a href="/site_data/html/about.html">About</a>
+                    <a href="/site_data/html/projects.html">Projects</a>
+                    <a href="/site_data/html/contact.html">Contact</a>
+            </nav>
+        </header>        
+        
+        <div class="spacer"></div>
+
+
+
+
+        <main>
+            <section>
+                <h3>Welcome to KamamasaStudio</h3>
+                <p>This is a personal website showcasing various projects and works.</p>
+            </section>
+            <button onclick="download()">ダウンロード</button>
+            <script>
+            function download() {
+            fetch('/download_data/products/1306916.jpg')
+                .then(res => res.blob())
+                .then(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'sample.jpg';
+                a.click();
+                URL.revokeObjectURL(url);
+                });
+            }
+            </script>
+            <p>loaded</p>
+        </main>
+
+        <div class="spacer_big"></div>
+
+        <footer>
+            <p>&copy; 2019-2025 KamamasaStudio. All rights reserved.</p>
+        </footer>
+
+        <script src="/site_data/js/index.js"></script>
+    </body>
+
+<!--last updated:2025-05-19 14:00-->
+</html>
