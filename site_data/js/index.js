@@ -1,4 +1,3 @@
-console.log('index.js loaded');
 //固定ヘッダー表示処理
 const fixedHeader = document.querySelector('.fixed-header');
 const pageHeader = document.querySelector('.top-header');
@@ -6,15 +5,13 @@ const pageHeader = document.querySelector('.top-header');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      // ページヘッダーが画面に見えている → 固定ヘッダー非表示
       fixedHeader.classList.remove('visible');
     } else {
-      // ページヘッダーが画面外 → 固定ヘッダー表示
       fixedHeader.classList.add('visible');
     }
   });
 }, {
-  root: null, // ビューポート
+  root: null,
   threshold: 0,
 });
 
@@ -43,3 +40,4 @@ hamburger_close.addEventListener('click', () => {
     overlay.classList.remove('show');
     hamburger_close.classList.remove('show');
 });
+

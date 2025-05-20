@@ -1,44 +1,20 @@
 @charset "UTF-8";
 
 /* 共通設定 */
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #eee;
+}
 body {
     font-family: "Noto Sans JP", sans-serif;
     font-size: 16px;
-    background-color: #fff;
-    color: #000;
     margin: 0;
     padding: 0;
-}
-a {
-    text-decoration: none;
-    color: #fff;
+    min-width: 400px;/* 最小幅400px */
 }
 
-/*
-レスポンシブ設定
-スマホサイズ時ハンバーガー表示
-*/
-.hamburger {
-    display: none;
-}
-.fixed-header {
-    display: flex;
-}
-.topnav a {
-    display: flex;
-}
-@media screen and (max-width: 1000px) {
-    .hamburger {
-        display: flex;
-    }
-    .fixed-header {
-        display: none;
-    }
-    .topnav a {
-        display: none;
-    }
-}
-
+    
 /* ヘッダー */
 .top-header {
     box-sizing: border-box;
@@ -47,7 +23,7 @@ a {
     display:flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 30px;
+    padding-left: clamp(10px, calc((100vw - 450px) * 0.33 + 10px), 30px);
     padding-right: 30px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -58,15 +34,45 @@ a {
     font-size: 20px;
     display: flex;
     justify-content: flex-start;
-    gap: 60px;
+    justify-content: space-between;
+    padding-left: clamp(20px, calc((100vw - 1000px) * 0.33 + 20px), 300px);
+    width: 100%;
+    max-width: 800px;
+}
+.topnav a {
+    color: #fff;
+    text-decoration: none;
+}
+.topnav a:hover {
+    color: #ff0;
 }
 #nowpage {
     color:#ff0;
 }
-
-.title {
+.top-title {
     font-size: 40px;
     font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+.top-subtitle {
+    display: flex;
+    position:absolute;
+    left:380px;
+    font-size: 15px;
+    color: #aaa;
+    text-decoration: none;
+}
+@media screen and (max-width: 1300px) {
+    .top-subtitle {
+        display: none;
+    }    
+}
+
+.fix-title {
+    font-size: 30px;
+    color: #fff;
+    text-decoration: none;
 }
 /* 固定ヘッダー */
 .fixed-header {
@@ -92,30 +98,66 @@ a {
     pointer-events: auto;
 }
 .fixnav {
-    padding-right: 100px;
+    padding-right: 20px;
     font-size: 20px;
     display: flex;
     justify-content: flex-start;
-    gap: 60px;
+    justify-content: space-between;
+    padding-left: clamp(20px, calc((100vw - 1000px) * 0.33 + 200px), 300px);
+    width: 100%;
+    max-width: 800px;
+}
+.fixnav a {
+    color: #fff;
+    text-decoration: none;
+}
+.fixnav a:hover {
+    color: #ff0;
 }
 
+
+
+/*レスポンシブ/ハンバーガー表示 基準値:1000px*/
+.hamburger {
+    display: none;
+    top: 25px;
+    right: 30px;
+}
+.fixed-header {
+    display: flex;
+}
+.topnav a {
+    display: flex;
+}
+@media screen and (max-width: 1000px) {
+    /*1000px以下のときハンバーガー表示*/
+    .hamburger {
+        display: flex;
+        top: 25px;
+        right:clamp(5px, calc((100vw - 450px) * 0.33 + 5px), 30px);
+    }
+    .fixed-header {
+        display: none;
+    }
+    .topnav a {
+        display: none;
+    }
+}
 /* ハンバーガーメニュー */
 .hamburger {
     font-size: 24px;
     border: none;
     color: #fff;
     background-color: #777;
-    top: 25px;
-    right: 30px;
-    z-index: 1001;
     cursor: pointer;
     position: fixed;
+    z-index: 1001;
 }
 .hamburger-menu {
     position: fixed;
     top: 0;
-    right: -440px; /* 最初は画面外に */
-    width: 400px;
+    right: -340px; /* 最初は画面外に */
+    width: 300px;
     height: 100%;
     background-color: #333;
     color: white;
@@ -152,9 +194,9 @@ a {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 1px;
+  height: 2px;
 
-  background: linear-gradient(to right, rgba(255,255,255,0.5), rgba(255,255,255,0));
+  background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0));
 }
 .hamburger-menu a {
     display: block;
@@ -163,10 +205,10 @@ a {
     text-decoration: none;
 }
 .detail {
-  display: block;
-  font-size: 14px;
-  color: #aaa;
-  margin-top: 0px;
+    display: block;
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 0px;
 }
 .menu-overlay 
 {
@@ -207,14 +249,120 @@ a {
 }
 
 
+
+
+
+
+
 /* メイン */
-main {
-    padding: 20px 20px;
-    background-color: #222;
-    color: #fff;
-    margin: 0 auto;
-    max-width: 800px;
+.main-content {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
 }
+
+/*背景*/
+.news {
+    margin-left:clamp(30px, calc((100vw - 1000px) * 0.33 + 30px), 150px);
+    margin-right:clamp(300px, calc((100vw - 1000px) * 0.33 + 300px), 600px);
+    padding: 30px;
+    background-color: #222;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+    border-radius: 5px;
+}
+
+.news h3 {
+    font-size: 30px;
+    color: #fff;
+    margin-top:0px;
+}
+
+.news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.news-list li {
+    border-bottom: 1px solid #666;
+    padding-bottom: 0.3em;
+}
+
+.news-header {
+    margin-top:-1em;
+  display: flex;
+  align-items: center;
+}
+
+.news-category{
+    color:#fff;
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: center;
+    display: flex;
+    width:100px;
+}
+
+.news-category[data-type="news-type-update"]{
+    background-color: aqua;
+    color:#111;
+}
+.news-category[data-type="news-type-release"]{
+    background-color: purple;
+    color:#fff;
+}
+.news-category[data-type="news-type-project"]{
+    background-color: yellow;
+    color: #000;
+}
+
+.news-timestamp{
+    position:absolute;
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #aaa;
+    margin-left: 120px;
+}
+.news-description {
+  font-size: 16px;
+  color: #eee;
+  line-height: 1.5;
+  margin-top: 0.5em;
+  max-height: calc(1.5em * 2); /* 2行分 */
+  height:calc(1.5em * 2); /* 2行分 */
+  overflow: hidden;
+}
+
+.news-view-all {
+    text-align: right;
+    display: block;
+    margin-top: 1em;
+    color: #777;
+    text-decoration: none;
+}
+
+
+/*レスポンシブ/メインコンテンツ配置*/
+@media screen and (max-width: 1000px) {
+    .news {
+        margin-right: 30px;
+    }    
+}
+
+
+
+
+
+
+
+
+
+
 
 .spacer {
     display: block;
@@ -223,6 +371,18 @@ main {
 .spacer_big {
     display: block;
     height: 2000px;
+}
+
+/* 一時的な代替 */
+.main-banner-content {
+    display: flex;
+    margin: -70px 30px 30px 30px;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+    background-color: #444;
+    color: #fff;
+    font-size: 24px;
 }
 
 /* フッター */

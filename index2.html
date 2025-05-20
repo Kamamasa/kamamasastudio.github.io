@@ -14,31 +14,26 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-VHNZ54MRC5');
     </script>
 
     <body>
         <header class="top-header">
-            <div class="title">
-                KamamasaStudio
-            </div>
+            <a href="index.html" class="top-title">KamamasaStudio</a>
+            <div class="top-subtitle">-雑多な物置き場-</div>
             <nav class="topnav">
-                    <a id="nowpage">Home</a>
                     <a href="/site_data/html/about.html">About</a>
                     <a href="/site_data/html/projects.html">Projects</a>
+                    <a href="/site_data/html/events.html">Events</a>
+                    <a href="/site_data/html/notes.html">Notes</a>
+                    <a href="/site_data/html/usage.html">Usage</a>
                     <a href="/site_data/html/contact.html">Contact</a>
-                    <a href="/site_data/html/testpage.html">TEST</a>
 
                     <button class="hamburger-close" id="hamburger-close">&#10005;</button>
                     <button class="hamburger" id="hamburger">&#9776;</button>
                     <nav class="hamburger-menu" id="hamburger-menu">
                         <h2>MENU</h2>
                         <ul>
-                            <li>
-                                <a id="nowpage">HOME</a>
-                                <small class="detail">建築中</small>
-                            </li>
                             <li>
                                 <a href="/site_data/html/about.html">About</a>
                                 <small class="detail">建築中</small>
@@ -71,42 +66,65 @@
         <div class="menu-overlay" id="menu-overlay"></div>
 
         <header class="fixed-header">
-            KamamasaStudio
+            <a href="index.html" class="fix-title">KamamasaStudio</a>
             <nav class="fixnav">
-                    <a id="nowpage">Home</a>
                     <a href="/site_data/html/about.html">About</a>
                     <a href="/site_data/html/projects.html">Projects</a>
+                    <a href="/site_data/html/events.html">Events</a>
+                    <a href="/site_data/html/notes.html">Notes</a>
+                    <a href="/site_data/html/usage.html">Usage</a>
                     <a href="/site_data/html/contact.html">Contact</a>
             </nav>
         </header>        
         
         <div class="spacer"></div>
 
+        <div class="banner">
+            <div class="main-banner-content">
+        </div>
 
-
-
-        <main>
-            <section>
-                <h3>Welcome to KamamasaStudio</h3>
-                <p>This is a personal website showcasing various projects and works.</p>
+        <main class="main-content">
+            <section class="news">
+                <div>
+                    <h3>NEWS</h3>
+                    <ul class="news-list">
+                    <li>
+                        <div class="news-header">
+                            <h4 class="news-category" data-type="news-type-update">UPDATE</h4>
+                            <h4 class="news-timestamp">2025-05-19</h4>
+                        </div>
+                        <p class="news-description">サイトサーバーを移転し、内容をすべて更新しました。<br>長めの2行目を挿入してみます、これどんな感じに表示されるかなぁ</p>
+                    </li>
+                    <li>
+                        <div class="news-header">
+                            <h4 class="news-category" data-type="news-type-release">RELEASE</h4>
+                            <h4 class="news-timestamp">2025-05-17</h4>
+                        </div>
+                        <p class="news-description">テストのテキスト<br>2行目</p>
+                    </li>
+                    <li>
+                        <div class="news-header">
+                            <h4 class="news-category" data-type="news-type-project">PROJECT</h4>
+                            <h4 class="news-timestamp">2025-05-17</h4>
+                        </div>
+                        <p class="news-description">テストのテキスト<br>2行目</p>
+                    </li>
+                    </ul>
+                </div>
+                <a href="/site_data/html/news.html" class="news-view-all">すべての内容を確認する>>></a>
             </section>
-            <button onclick="download()">ダウンロード</button>
-            <script>
-            function download() {
-            fetch('/download_data/products/1306916.jpg')
-                .then(res => res.blob())
-                .then(blob => {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'sample.jpg';
-                a.click();
-                URL.revokeObjectURL(url);
-                });
-            }
-            </script>
-            <p>loaded</p>
         </main>
+        <sub>
+            <section class="sub-right">
+                <h3>Subsection</h3>
+                <p>This is a subsection for additional information.</p>
+        </sub>
+        <sub>
+            <section class="sub-left">
+                <h3>Subsection</h3>
+                <p>This is a subsection for additional information.</p>
+            </section>
+        </sub>
 
         <div class="spacer_big"></div>
 
