@@ -29,6 +29,12 @@
                     margin-bottom: 30px;
                     line-height: 0.5;
                 }
+                #version {
+                    position:fixed;
+                    bottom: 0px;
+                    right: 0px;
+                    color: #000;
+                }
         </style>
     </head>
     <body>
@@ -43,6 +49,7 @@
             <p id="error-msg" style="color: red; display: none;">パスワードが違います</p>
         </div>
         </div>
+        <p id="version">Ver:0.2.1</p>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const inputField = document.getElementById("password-input");
