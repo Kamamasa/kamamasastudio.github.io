@@ -54,6 +54,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "🎬 Update YouTube videos data - $(date '+%Y-%m-%d %H:%M')"
+            git commit -m "YouTube videos data - $(date '+%Y-%m-%d %H:%M')"
             git push
           fi

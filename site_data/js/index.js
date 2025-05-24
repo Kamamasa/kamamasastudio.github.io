@@ -54,7 +54,7 @@ window.addEventListener('resize', () => {
 
        async function loadYouTubeVideos() {
             try {
-                const response = await fetch('./site_data/json/youtube_videos.json');
+                const response = await fetch('/site_data/json/youtube_videos.json');
                 if (!response.ok) throw new Error('データの取得に失敗しました');
                 
                 const data = await response.json();
