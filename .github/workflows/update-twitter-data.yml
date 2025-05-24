@@ -1,9 +1,8 @@
-name: Update Twitter Data (Inline Script)
+name: Update Twitter Data
 
 on:
   schedule:
-    # 毎時0分に実行 (UTC)
-    - cron: '0 * * * *'
+    - cron: '0 */6 * * *'
   workflow_dispatch: # 手動実行も可能
 
 jobs:
