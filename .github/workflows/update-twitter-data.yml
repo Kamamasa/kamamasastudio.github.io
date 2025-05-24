@@ -1,4 +1,4 @@
-name: Update Twitter Data
+name: Update Twitter Data (Inline Script)
 
 on:
   schedule:
@@ -22,32 +22,14 @@ jobs:
     - name: Install dependencies
       run: |
         npm init -y
-        npm install axios dotenv
+        npm install axios
         
-    - name: Debug file system
-      run: |
-        echo "Current directory:"
-        pwd
-        echo "Directory contents:"
-        ls -la
-        echo "Scripts directory:"
-        ls -la scripts/ || echo "scripts directory not found"
-        echo "All .js files:"
-        find . -name "*.js" -type f || echo "No .js files found"
-        
-    - name: Fetch Twitter data
+    - name: Create and run Twitter data fetch script
       env:
         TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
         TWITTER_USER_ID: ${{ secrets.TWITTER_USER_ID }}
       run: |
-        if [ -f "scripts/fetch-twitter-data.js" ]; then
-          echo "Running Twitter data fetch script..."
-          node scripts/fetch-twitter-data.js
-        else
-          echo "Error: scripts/fetch-twitter-data.js not found"
-          echo "Creating scripts directory and file..."
-          mkdir -p scripts
-          cat > scripts/fetch-twitter-data.js << 'EOF'
+        cat > fetch-twitter.js << 'EOF'
         const axios = require('axios');
         const fs = require('fs');
         const path = require('path');
@@ -56,10 +38,12 @@ jobs:
         const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
         const USER_ID = process.env.TWITTER_USER_ID;
         
+        console.log('Environment check:');
+        console.log('BEARER_TOKEN:', BEARER_TOKEN ? 'Set (length: ' + BEARER_TOKEN.length + ')' : 'Not set');
+        console.log('USER_ID:', USER_ID || 'Not set');
+        
         if (!BEARER_TOKEN || !USER_ID) {
-            console.error('環境変数が設定されていません');
-            console.error('BEARER_TOKEN:', BEARER_TOKEN ? 'Set' : 'Not set');
-            console.error('USER_ID:', USER_ID ? 'Set' : 'Not set');
+            console.error('必要な環境変数が設定されていません');
             process.exit(1);
         }
         
@@ -68,16 +52,33 @@ jobs:
             'Content-Type': 'application/json',
         };
         
+        async function fetchWithRetry(url, options, maxRetries = 3) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await axios.get(url, options);
+                    return response;
+                } catch (error) {
+                    console.log(`Attempt ${i + 1} failed:`, error.response?.status, error.response?.statusText);
+                    if (i === maxRetries - 1) throw error;
+                    
+                    console.log(`Retrying in ${(i + 1) * 2} seconds...`);
+                    await new Promise(resolve => setTimeout(resolve, (i + 1) * 2000));
+                }
+            }
+        }
+        
         async function fetchUserInfo() {
             try {
                 console.log('Fetching user info...');
-                const response = await axios.get(
+                const response = await fetchWithRetry(
                     `https://api.twitter.com/2/users/${USER_ID}?user.fields=public_metrics`,
                     { headers }
                 );
                 
+                console.log('API Response status:', response.status);
                 const user = response.data.data;
-                console.log('User info fetched successfully');
+                console.log('User info fetched successfully:', user.username);
+                
                 return {
                     name: user.name,
                     username: user.username,
@@ -86,7 +87,9 @@ jobs:
                     tweet_count: user.public_metrics.tweet_count
                 };
             } catch (error) {
-                console.error('ユーザー情報取得エラー:', error.response?.data || error.message);
+                console.error('ユーザー情報取得エラー:');
+                console.error('Status:', error.response?.status);
+                console.error('Data:', JSON.stringify(error.response?.data, null, 2));
                 throw error;
             }
         }
@@ -94,13 +97,15 @@ jobs:
         async function fetchRecentTweets() {
             try {
                 console.log('Fetching recent tweets...');
-                const response = await axios.get(
+                const response = await fetchWithRetry(
                     `https://api.twitter.com/2/users/${USER_ID}/tweets?max_results=10&tweet.fields=created_at,public_metrics&exclude=retweets,replies`,
                     { headers }
                 );
                 
+                console.log('Tweets API Response status:', response.status);
                 const tweets = response.data.data || [];
                 console.log(`Fetched ${tweets.length} tweets`);
+                
                 return tweets.map(tweet => ({
                     text: tweet.text,
                     created_at: tweet.created_at,
@@ -110,14 +115,20 @@ jobs:
                     quote_count: tweet.public_metrics.quote_count
                 }));
             } catch (error) {
-                console.error('ツイート取得エラー:', error.response?.data || error.message);
-                throw error;
+                console.error('ツイート取得エラー:');
+                console.error('Status:', error.response?.status);
+                console.error('Data:', JSON.stringify(error.response?.data, null, 2));
+                
+                // ツイート取得に失敗しても処理を続行（空配列を返す）
+                console.log('Continuing with empty tweets array...');
+                return [];
             }
         }
         
         async function main() {
             try {
-                console.log('Twitter データを取得中...');
+                console.log('=== Twitter データ取得開始 ===');
+                console.log('Timestamp:', new Date().toISOString());
                 
                 const [userInfo, tweets] = await Promise.all([
                     fetchUserInfo(),
@@ -131,38 +142,73 @@ jobs:
                 };
                 
                 // ディレクトリが存在しない場合は作成
-                const outputDir = path.dirname('site_data/json/twitter_data.json');
+                const outputPath = 'site_data/json/twitter_data.json';
+                const outputDir = path.dirname(outputPath);
+                
+                console.log('Creating output directory:', outputDir);
                 if (!fs.existsSync(outputDir)) {
                     fs.mkdirSync(outputDir, { recursive: true });
                 }
                 
                 // JSONファイルに保存
+                console.log('Writing to:', outputPath);
                 fs.writeFileSync(
-                    'site_data/json/twitter_data.json',
+                    outputPath,
                     JSON.stringify(data, null, 2),
                     'utf8'
                 );
                 
-                console.log('Twitter データの更新が完了しました');
-                console.log(`フォロワー数: ${userInfo.followers_count}`);
-                console.log(`ツイート数: ${tweets.length}件取得`);
+                console.log('=== Twitter データ更新完了 ===');
+                console.log(`ユーザー: @${userInfo.username} (${userInfo.name})`);
+                console.log(`フォロワー数: ${userInfo.followers_count.toLocaleString()}`);
+                console.log(`フォロー数: ${userInfo.following_count.toLocaleString()}`);
+                console.log(`総ツイート数: ${userInfo.tweet_count.toLocaleString()}`);
+                console.log(`取得ツイート数: ${tweets.length}件`);
+                
+                // ファイルが正常に作成されたか確認
+                if (fs.existsSync(outputPath)) {
+                    const fileSize = fs.statSync(outputPath).size;
+                    console.log(`ファイルサイズ: ${fileSize} bytes`);
+                } else {
+                    throw new Error('JSONファイルの作成に失敗しました');
+                }
                 
             } catch (error) {
-                console.error('メインプロセスエラー:', error);
+                console.error('=== エラー発生 ===');
+                console.error('Error:', error.message);
+                console.error('Stack:', error.stack);
                 process.exit(1);
             }
         }
         
         main();
         EOF
-          echo "Script created, now running..."
-          node scripts/fetch-twitter-data.js
+        
+        echo "Running Twitter data fetch..."
+        node fetch-twitter.js
+        
+    - name: Check generated file
+      run: |
+        if [ -f "site_data/json/twitter_data.json" ]; then
+          echo "Generated file exists!"
+          echo "File size: $(stat -c%s site_data/json/twitter_data.json) bytes"
+          echo "First 200 characters:"
+          head -c 200 site_data/json/twitter_data.json
+        else
+          echo "Generated file not found!"
+          echo "Directory contents:"
+          find . -name "*.json" -type f
         fi
-      
+        
     - name: Commit and push changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add site_data/json/twitter_data.json
-        git diff --staged --quiet || git commit -m "Update Twitter data $(date)"
-        git push
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Update Twitter data $(date -u)"
+          git push
+          echo "Changes committed and pushed"
+        fi
