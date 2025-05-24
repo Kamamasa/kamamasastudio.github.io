@@ -28,42 +28,40 @@
                     <a href="/site_data/html/notes.html">Notes</a>
                     <a href="/site_data/html/usage.html">Usage</a>
                     <a href="/site_data/html/contact.html">Contact</a>
-
-                    <button class="hamburger-close" id="hamburger-close">&#10005;</button>
-                    <button class="hamburger" id="hamburger">&#9776;</button>
-                    <nav class="hamburger-menu" id="hamburger-menu">
-                        <h2>MENU</h2>
-                        <ul>
-                            <li>
-                                <a href="/site_data/html/about.html">About</a>
-                                <small class="detail">建築中</small>
-                            </li>
-                            <li>
-                                <a href="/site_data/html/projects.html">Projects</a>
-                                <small class="detail">建築中</small>
-                            </li>
-                            <li>
-                                <a href="/site_data/html/events.html">Events</a>
-                                <small class="detail">建築中</small>
-                            </li>
-                            <li>
-                                <a href="/site_data/html/notes.html">Notes</a>
-                                <small class="detail">建築中</small>
-                            </li>
-                            <li>
-                                <a href="/site_data/html/usage.html">Usage</a>
-                                <small class="detail">建築中</small>
-                            </li>
-                            <li>
-                                <a href="/site_data/html/contact.html">Contact</a>
-                                <small class="detail">建築中</small>
-                            </li>
-                        </ul>
-                    </nav>
-
             </nav>
+            <button class="hamburger" id="hamburger">&#9776;</button>
         </header>
         <div class="menu-overlay" id="menu-overlay"></div>
+        <nav class="hamburger-menu" id="hamburger-menu">
+            <h2>MENU</h2>
+            <ul>
+                <li>
+                    <a href="/site_data/html/about.html">About</a>
+                    <small class="detail">建築中</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/projects.html">Projects</a>
+                    <small class="detail">建築中</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/events.html">Events</a>
+                    <small class="detail">建築中</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/notes.html">Notes</a>
+                    <small class="detail">建築中</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/usage.html">Usage</a>
+                    <small class="detail">建築中</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/contact.html">Contact</a>
+                    <small class="detail">建築中</small>
+                </li>
+            </ul>
+            <button class="hamburger-close" id="hamburger-close">&#10005;</button>
+        </nav>
 
         <header class="fixed-header">
             <a href="index.html" class="fix-title">KamamasaStudio</a>
@@ -79,55 +77,65 @@
         
         <div class="spacer"></div>
 
+        <!-- Main content -->
+
         <div class="banner">
             <div class="main-banner-content">
         </div>
-
-        <main class="main-content">
-            <section class="news">
-                <div>
-                    <h3>NEWS</h3>
-                    <ul class="news-list">
-                    <li>
-                        <div class="news-header">
-                            <h4 class="news-category" data-type="news-type-update">UPDATE</h4>
-                            <h4 class="news-timestamp">2025-05-19</h4>
-                        </div>
-                        <p class="news-description">サイトサーバーを移転し、内容をすべて更新しました。<br>長めの2行目を挿入してみます、これどんな感じに表示されるかなぁ</p>
-                    </li>
-                    <li>
-                        <div class="news-header">
-                            <h4 class="news-category" data-type="news-type-release">RELEASE</h4>
-                            <h4 class="news-timestamp">2025-05-17</h4>
-                        </div>
-                        <p class="news-description">テストのテキスト<br>2行目</p>
-                    </li>
-                    <li>
-                        <div class="news-header">
-                            <h4 class="news-category" data-type="news-type-project">PROJECT</h4>
-                            <h4 class="news-timestamp">2025-05-17</h4>
-                        </div>
-                        <p class="news-description">テストのテキスト<br>2行目</p>
-                    </li>
-                    </ul>
-                </div>
-                <a href="/site_data/html/news.html" class="news-view-all">すべての内容を確認する>>></a>
-            </section>
-        </main>
-        <sub>
-            <section class="sub-right">
-                <h3>Subsection</h3>
-                <p>This is a subsection for additional information.</p>
-        </sub>
-        <sub>
-            <section class="sub-left">
-                <h3>Subsection</h3>
-                <p>This is a subsection for additional information.</p>
-            </section>
-        </sub>
-
-        <div class="spacer_big"></div>
-
+        
+        <div class="contents">
+            <main class="main-content">
+                <section class="news">
+                    <div>
+                        <h3>NEWS</h3>
+                        <ul class="news-list">
+                        <!--CSSにカテゴリ分けの配色は設定済み、一応Update/Release/Project/Info/Maintenance/Blogは対応-->
+                        <li>
+                            <div class="news-header">
+                                <h4 class="news-category" data-type="news-type-update">UPDATE</h4>
+                                <h4 class="news-timestamp">2025-05-31</h4>
+                            </div>
+                            <p class="news-description">サイトサーバーを移転し、内容をすべて更新しました。<br>今後ともよろしくお願いします。</p>
+                        </li>
+                        <li>
+                            <div class="news-header">
+                                <h4 class="news-category" data-type="news-type-info">INFORMATION</h4>
+                                <h4 class="news-timestamp">2025-05-24</h4>
+                            </div>
+                            <p class="news-description">ファイルサーバーをGoogleDriveベースからサーバーベースに移行しました。<br>httpで通してあるのでダウンロードボタン押下時に警告が出てくるかもしれません。</p>
+                        </li>
+                        <li>
+                            <div class="news-header">
+                                <h4 class="news-category" data-type="news-type-blog">PROJECT</h4>
+                                <h4 class="news-timestamp">2025-05-17</h4>
+                            </div>
+                            <p class="news-description">サイト及びサーバーの移転作業及び一新作業を開始しました。</p>
+                        </li>
+                        </ul>
+                    </div>
+                    <a href="/site_data/html/news.html" class="news-view-all">すべての内容を確認する>>></a>
+                </section>
+                <section class="youtube-section">
+                    <h3>LATEST VIDEOS</h3>
+                    <div id="youtube-container">
+                        <div class="loading">動画を読み込み中...</div>
+                    </div>
+                    <div class="last-updated" id="last-updated"></div>
+                </section>
+            </main>
+            <sub class="sub-content">
+                <section>
+                        <p>ここにサイドバーの内容が入ります。</p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">📊 統計情報</li>
+                            <li style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">🔗 関連リンク</li>
+                            <li style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">📝 最新の投稿</li>
+                            <li style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">🏷️ タグクラウド</li>
+                        </ul>
+                    </section> 
+            </sub>
+        </div>
+        <div class="spacer"></div>
         <footer>
             <p>&copy; 2019-2025 KamamasaStudio. All rights reserved.</p>
         </footer>

@@ -4,15 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Not Found</title>
-    <link rel="stylesheet" href="/site_data/css/style.css">
-    <link rel="stylesheet" href="/site_data/css/404.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            box-sizing: border-box;
+            height: 80px;
+            width: 100%;
+            display:flex;
+            align-items: center;
+            padding-left: clamp(10px, calc((100vw - 450px) * 0.33 + 10px), 30px);
+            background-color: #333;
+            color: #fff;
+        }
+        header a {
+            font-size: 40px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+        .container h1
+        {
+            font-size: 50px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container p
+        {
+            font-size: 20px;
+            text-align: center;
+        }
+        .container a
+        {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        footer {
+            display: block;
+            position:fixed;
+            background-color: #111;
+            color: #fff;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            bottom: 0;            
+        }
+
+        @keyframes rainbowBackground {
+            0%   { color: #ff0000; }
+            16%  { color: #ffa500; }
+            33%  { color: #ffff00; }
+            50%  { color: #00ff00; }
+            66%  { color: #0000ff; }
+            83%  { color: #4b0082; }
+            100% { color: #ff0000; }
+        }
+
+        .rainbow-404 {
+        animation: rainbowBackground 8s infinite linear;
+        color: white;
+        text-align: center;
+        padding: 80px 20px;
+        min-height: 80vh;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
+    <header>
+        <a href="/index.html" class="top-title">KamamasaStudio</a>
+    </header>
+    <div class="container rainbow-404">
         <h1>404 Not Found</h1>
         <p>お探しのページは見つかりませんでした。</p>
         <a href="/index.html">ホームに戻る</a>
     </div>
+    <footer>
+        <p>&copy; 2019-2025 KamamasaStudio. All rights reserved.</p>
+    </footer>
+    <script>
+        const konamiCode = [
+            "ArrowUp", "ArrowUp", 
+            "ArrowDown", "ArrowDown", 
+            "ArrowLeft", "ArrowRight", 
+            "ArrowLeft", "ArrowRight", 
+            "b", "a"
+        ];
+        let inputBuffer = [];
 
-    <script src="/site_data/js/script.js"></script>
+        window.addEventListener("keydown", (e) => {
+            inputBuffer.push(e.key);
+            if (inputBuffer.length > konamiCode.length) {
+            inputBuffer.shift();
+            }
+
+            if (JSON.stringify(inputBuffer) === JSON.stringify(konamiCode)) {
+                alert("404ページで君何してんのよ");
+                window.location.href = "/site_data/html/secret.html";
+            }
+        });
+    </script>
 </html>

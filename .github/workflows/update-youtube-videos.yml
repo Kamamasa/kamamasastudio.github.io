@@ -1,0 +1,59 @@
+# .github/workflows/update-youtube-videos.yml
+name: Update YouTube Videos
+
+on:
+  # 定期実行（6時間ごと）
+  schedule:
+    - cron: '0 */6 * * *'
+  
+  # 手動実行も可能
+  workflow_dispatch:
+
+jobs:
+  update-videos:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Fetch YouTube Data
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+        run: |
+          # YouTubeの最新動画を取得
+          SEARCH_RESPONSE=$(curl -s "https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=3&type=video")
+          
+          # 動画IDを抽出
+          VIDEO_IDS=$(echo "$SEARCH_RESPONSE" | jq -r '.items[].id.videoId' | tr '\n' ',' | sed 's/,$//')
+          
+          # 再生数などの統計情報を取得
+          STATS_RESPONSE=$(curl -s "https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&id=${VIDEO_IDS}&part=statistics,snippet")
+          
+          # JSONファイルとして保存
+          echo "$STATS_RESPONSE" > site_data/json/youtube_videos.json
+          
+      - name: Format JSON data
+        run: |
+          # Node.jsスクリプトでデータを整形
+          node .github/scripts/format-youtube-data.js
+          
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add site_data/json/youtube_videos.json
+          
+          # 変更があった場合のみコミット
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🎬 Update YouTube videos data - $(date '+%Y-%m-%d %H:%M')"
+            git push
+          fi
