@@ -1,0 +1,38 @@
+name: Update Twitter Data
+
+on:
+  schedule:
+      - cron: '0 */6 * * *'
+  workflow_dispatch: # 手動実行も可能
+
+jobs:
+  update-twitter-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm init -y
+        npm install axios dotenv
+        
+    - name: Fetch Twitter data
+      env:
+        TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+        TWITTER_USER_ID: ${{ secrets.TWITTER_USER_ID }}
+      run: node scripts/fetch-twitter-data.js
+      
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add site_data/json/twitter_data.json
+        git diff --staged --quiet || git commit -m "Update Twitter data $(date)"
+        git push
