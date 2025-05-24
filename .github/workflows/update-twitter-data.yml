@@ -2,8 +2,12 @@ name: Update Twitter Data
 
 on:
   schedule:
+<<<<<<< HEAD
     # 毎時0分に実行 (UTC)
     - cron: '0 * * * *'
+=======
+      - cron: '0 */6 * * *'
+>>>>>>> a0a1185c464db2df050306337210bb05c6e31436
   workflow_dispatch: # 手動実行も可能
 
 jobs:
@@ -24,6 +28,7 @@ jobs:
         npm init -y
         npm install axios dotenv
         
+<<<<<<< HEAD
     - name: Debug file system
       run: |
         echo "Current directory:"
@@ -35,10 +40,13 @@ jobs:
         echo "All .js files:"
         find . -name "*.js" -type f || echo "No .js files found"
         
+=======
+>>>>>>> a0a1185c464db2df050306337210bb05c6e31436
     - name: Fetch Twitter data
       env:
         TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
         TWITTER_USER_ID: ${{ secrets.TWITTER_USER_ID }}
+<<<<<<< HEAD
       run: |
         if [ -f "scripts/fetch-twitter-data.js" ]; then
           echo "Running Twitter data fetch script..."
@@ -158,6 +166,9 @@ jobs:
           echo "Script created, now running..."
           node scripts/fetch-twitter-data.js
         fi
+=======
+      run: node scripts/fetch-twitter-data.js
+>>>>>>> a0a1185c464db2df050306337210bb05c6e31436
       
     - name: Commit and push changes
       run: |
