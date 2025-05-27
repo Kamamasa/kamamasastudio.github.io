@@ -44,16 +44,11 @@ jobs:
           # Node.jsスクリプトでデータを整形
           node .github/scripts/format-youtube-data.js
           
-      - name: Commit and push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add site_data/json/youtube_videos.json
-          
-          # 変更があった場合のみコミット
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "YouTube videos data - $(date '+%Y-%m-%d %H:%M')"
-            git push
-          fi
+      - name: Deploy JSON to gh-pages (no history)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site_data/json
+          destination_dir: site_data/json
+          publish_branch: gh-pages
+          force_orphan: true
