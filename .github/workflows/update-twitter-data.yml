@@ -93,36 +93,6 @@ jobs:
             }
         }
         
-        async function fetchRecentTweets() {
-            try {
-                console.log('Fetching recent tweets...');
-                const response = await fetchWithRetry(
-                    `https://api.twitter.com/2/users/${USER_ID}/tweets?max_results=10&tweet.fields=created_at,public_metrics&exclude=retweets,replies`,
-                    { headers }
-                );
-                
-                console.log('Tweets API Response status:', response.status);
-                const tweets = response.data.data || [];
-                console.log(`Fetched ${tweets.length} tweets`);
-                
-                return tweets.map(tweet => ({
-                    text: tweet.text,
-                    created_at: tweet.created_at,
-                    reply_count: tweet.public_metrics.reply_count,
-                    retweet_count: tweet.public_metrics.retweet_count,
-                    like_count: tweet.public_metrics.like_count,
-                    quote_count: tweet.public_metrics.quote_count
-                }));
-            } catch (error) {
-                console.error('ツイート取得エラー:');
-                console.error('Status:', error.response?.status);
-                console.error('Data:', JSON.stringify(error.response?.data, null, 2));
-                
-                // ツイート取得に失敗しても処理を続行（空配列を返す）
-                console.log('Continuing with empty tweets array...');
-                return [];
-            }
-        }
         
         async function main() {
             try {
@@ -130,8 +100,7 @@ jobs:
                 console.log('Timestamp:', new Date().toISOString());
                 
                 const [userInfo, tweets] = await Promise.all([
-                    fetchUserInfo(),
-                    fetchRecentTweets()
+                    fetchUserInfo()
                 ]);
                 
                 const data = {
@@ -162,7 +131,6 @@ jobs:
                 console.log(`フォロワー数: ${userInfo.followers_count.toLocaleString()}`);
                 console.log(`フォロー数: ${userInfo.following_count.toLocaleString()}`);
                 console.log(`総ツイート数: ${userInfo.tweet_count.toLocaleString()}`);
-                console.log(`取得ツイート数: ${tweets.length}件`);
                 
                 // ファイルが正常に作成されたか確認
                 if (fs.existsSync(outputPath)) {

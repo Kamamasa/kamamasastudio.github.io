@@ -2,7 +2,7 @@
 name: Update YouTube Videos
 
 on:
-  # 定期実行（6時間ごと）
+  # 定期実行（24時間ごと）
   schedule:
     - cron: '0 0 * * *'
   
@@ -37,7 +37,7 @@ jobs:
           STATS_RESPONSE=$(curl -s "https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&id=${VIDEO_IDS}&part=statistics,snippet")
           
           # JSONファイルとして保存
-          echo "$STATS_RESPONSE" > site_data/json/youtube_videos.json
+          echo "$STATS_RESPONSE" > site_data/json/youtube_data.json
           
       - name: Format JSON data
         run: |

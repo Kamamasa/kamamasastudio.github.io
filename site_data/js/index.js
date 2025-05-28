@@ -1,6 +1,9 @@
+const twitter_json = 'site_data/json/twitter_data.json'
+const youtube_json = 'site_data/json/youtube_data.json'
+
 async function loadYouTubeVideos() {
     try {
-        const response = await fetch('/site_data/json/youtube_videos.json');
+        const response = await fetch(youtube_json);
         if (!response.ok) throw new Error('データの取得に失敗しました');
         
         const data = await response.json();
@@ -48,7 +51,7 @@ function displayVideos(videos) {
 async function loadTwitterData() {
     try {
         let response;
-        response = await fetch('/site_data/json/twitter_data.json');
+        response = await fetch(twitter_json);
         
         if (!response || !response.ok) {
             throw new Error(`HTTPエラー: ${response?.status} ${response?.statusText}`);
@@ -70,8 +73,8 @@ async function loadTwitterData() {
         
         // 最終更新時刻を表示
         const lastUpdated = new Date(data.lastUpdated);
-        document.getElementById('last-updated').textContent = 
-            `最終更新: ${lastUpdated.toLocaleDateString('ja-JP')} ${lastUpdated.toLocaleTimeString('ja-JP')}`;
+        console.log(`Twitter 最終更新: ${lastUpdated.toLocaleDateString('ja-JP')} ${lastUpdated.toLocaleTimeString('ja-JP')}`)
+
         
     } catch (error) {
         console.error('Error loading Twitter data:', error);
@@ -119,30 +122,7 @@ function displayTwitterData(data) {
             </div>
         </a>
     `;
-
-    // ツイートの表示
-    let tweetsHTML = '';
-    if (data.tweets && data.tweets.length > 0) {
-        const tweetsListHTML = data.tweets.map(tweet => `
-            <div class="tweet-item">
-                <div class="tweet-content">${tweet.text || 'ツイート内容なし'}</div>
-                <div class="tweet-meta">
-                    <div class="tweet-date">${formatDate(tweet.created_at)}</div>
-                    <div class="tweet-stats">
-                        <span class="tweet-stat replies">${formatNumber(tweet.reply_count || 0)}</span>
-                        <span class="tweet-stat retweets">${formatNumber(tweet.retweet_count || 0)}</span>
-                        <span class="tweet-stat likes">${formatNumber(tweet.like_count || 0)}</span>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-        
-        tweetsHTML = `<div class="tweets-container">${tweetsListHTML}</div>`;
-    } else {
-        tweetsHTML = '<div class="error">最近のツイートが見つかりませんでした</div>';
-    }
-
-    container.innerHTML = userInfoHTML + tweetsHTML;
+    container.innerHTML = userInfoHTML;
 }
 
 function formatNumber(num) {
@@ -154,34 +134,9 @@ function formatNumber(num) {
     return num.toString();
 }
 
-function formatDate(dateString) {
-    if (!dateString) return '日時不明';
-    
-    try {
-        const date = new Date(dateString);
-        const now = new Date();
-        const diffTime = Math.abs(now - date);
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
-        const diffMinutes = Math.floor(diffTime / (1000 * 60));
 
-        if (diffMinutes < 60) {
-            return `${diffMinutes}分前`;
-        } else if (diffHours < 24) {
-            return `${diffHours}時間前`;
-        } else if (diffDays < 7) {
-            return `${diffDays}日前`;
-        } else {
-            return date.toLocaleDateString('ja-JP', { 
-                month: 'short', 
-                day: 'numeric' 
-            });
-        }
-    } catch (error) {
-        console.error('Date formatting error:', error);
-        return '日時不明';
-    }
-}
+
+
 
 // ページ読み込み時に実行
 document.addEventListener('DOMContentLoaded', loadYouTubeVideos);

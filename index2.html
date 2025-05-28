@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="KamamasaStudio is a personal website showcasing various projects and works.">
         <link rel="stylesheet" href="/site_data/css/index.css">
-        <link rel="stylesheet" href="/site_data/css/default.css">
         <link rel="icon" href="/site_data/img/favicon.ico" type="image/x-icon">
     </head>
     <!-- Google tag (gtag.js) -->
@@ -37,29 +36,30 @@
             <h2>MENU</h2>
             <ul>
                 <li>
-                    <a href="/site_data/html/about.html">About</a>
-                    <small class="detail">建築中</small>
+                    <a href="../html/about.html">About</a>
+                    <small class="detail">このサイト及び主について</small>
                 </li>
                 <li>
-                    <a href="/site_data/html/projects.html">Projects</a>
-                    <small class="detail">建築中</small>
+                    <a href="../html/projects.html">Projects</a>
+                    <small class="detail">制作物などのまとめ置き場</small>
                 </li>
                 <li>
-                    <a href="/site_data/html/events.html">Events</a>
-                    <small class="detail">建築中</small>
+                    <a href="../html/events.html">Events</a>
+                    <small class="detail">双方向イベントなどの特設ページ</small>
                 </li>
                 <li>
-                    <a href="/site_data/html/notes.html">Notes</a>
-                    <small class="detail">建築中</small>
+                    <a href="../html/notes.html">Notes</a>
+                    <small class="detail">メモだの開発日記だのTipsだの</small>
                 </li>
                 <li>
-                    <a href="/site_data/html/usage.html">Usage</a>
-                    <small class="detail">建築中</small>
+                    <a href="../html/usage.html">Usage</a>
+                    <small class="detail">二次三次利用について</small>
                 </li>
                 <li>
-                    <a href="/site_data/html/contact.html">Contact</a>
-                    <small class="detail">建築中</small>
+                    <a href="../html/contact.html">Contact</a>
+                    <small class="detail">連絡先等</small>
                 </li>
+
             </ul>
             <button class="hamburger-close" id="hamburger-close">&#10005;</button>
         </nav>
@@ -119,8 +119,9 @@
                     </div>
                     <a href="/site_data/html/news.html" class="news-view-all">すべての内容を確認する>>></a>
                 </section>
+
                 <section class="youtube-section">
-                    <h3>LATEST VIDEOS</h3>
+                    <h3>LATEST YOUTUBE VIDEOS</h3>
                     <div id="youtube-container">
                         <div class="loading">動画を読み込み中...</div>
                     </div>
@@ -134,7 +135,9 @@
                             <div id="twitter-container">
                                 <div class="loading">Twitter情報を読み込み中...</div>
                             </div>
-                            <div class="last-updated" id="last-updated"></div>
+                            <div id="twitter-timeline-box">
+                            <a class="twitter-timeline" data-chrome="noheader noborders transparent" data-link-color="#8e1d08" data-lang="ja" data-height="500" data-width=100% data-dnt="true" data-theme="dark" href="https://twitter.com/Kamamasa2?ref_src=twsrc%5Etfw">Tweets by Kamamasa2</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                            </div>
                         </section>                        
                     </section>
                     <div class="something">something</div>
@@ -147,6 +150,13 @@
 
         <script src="/site_data/js/index.js"></script>
         <script src="/site_data/js/default.js"></script>
+        <script>
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];
+                if(!d.getElementById(id)){js=d.createElement(s);js.id=id;
+                js.src="//platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js,fjs);}
+            }(document,"script","twitter-wjs");
+        </script>
     </body>
 
 <!--last updated:2025-05-19 14:00-->
