@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="KamamasaStudio is a personal website showcasing various projects and works.">
-        <link rel="stylesheet" href="../css/usage.css">
+        <link rel="stylesheet" href="../css/contact.css">
         <link rel="stylesheet" href="../css/default.css">
         <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
     </head>
@@ -19,7 +19,7 @@
                     <a href="../html/events.html">Events</a>
                     <a href="../html/notes.html">Notes</a>
                     <a href="../html/usage.html">Usage</a>
-                    <div id="top-nowpage">Contact</div>
+                    <a href="../html/contact.html" id="top-nowpage">Contact</a>
             </nav>
             <button class="hamburger" id="hamburger">&#9776;</button>
         </header>
@@ -48,8 +48,8 @@
                     <small class="detail">二次三次利用について</small>
                 </li>
                 <li>
-                    <div id="hamburger-nowpage">Contact</div>
-                    <small class="nowpage-detail">連絡先等</small>
+                    <a href="../html/contact.html" id="hamburger-nowpage">Contact</a>
+                    <small class="detail" id="nowpage-detail">連絡先等</small>
                 </li>
             </ul>
             <button class="hamburger-close" id="hamburger-close">&#10005;</button>
@@ -63,7 +63,7 @@
                     <a href="../html/events.html">Events</a>
                     <a href="../html/notes.html">Notes</a>
                     <a href="../html/usage.html">Usage</a>
-                    <div id="fix-nowpage">Contact</div>
+                    <a href="../html/contact.html" id="fix-nowpage">Contact</a>
             </nav>
         </header>        
         
@@ -72,15 +72,29 @@
         <!-- Main content -->
         <div class="contents">
             <main class="main-content">
+                <div class="title-container">
                     <h1>Contact</h1>
-                    <p>にへへへへこの草ハンバーグの味がするこの草ハンバーグの味がする</p>
+                </div>
+                <div class="body-container">
+                    <section class="contact-list">
+                        <a class="table_list" href="mailto:kamamasastudio.contact@gmail.com">
+                            <p class="list-title">メール(本当に重要な連絡用にお願いします)</p>
+                            <p class="list-string">kamamasastudio.contact@gmail.com</p>
+                        </a>
+                        <a class="table_list" href="http://www.twitter.com/messages/compose?recipient_id=1187677230421299201">
+                            <p class="list-title">Twitter(新X) DM (軽微な連絡用/ラフにコンタクト取りたいならココに)</p>
+                            <p class="list-string">@kamamasa2</p>
+                        </a>
+                        <p class="table_text">基本的には比較的早めに返信できるかと思いますが、真面目な連絡で1週間とか経って返信ねぇぞおいとかいう状況になりましたらメール再送等お願いします</p>
+                    </section>
+                </div>
             </main>
-            <div class="spacer_big"></div>
-        </div> 
-        <div class="spacer"></div>
+            <!-- ... -->
+        </div>
+        <div class="spacer_full"></div>
         <footer>
             <p>&copy; 2019-2025 KamamasaStudio. All rights reserved.</p>
         </footer>
-        <script src="../js/usage.js"></script>
+        <script src="../js/contact.js"></script>
         <script src="../js/default.js"></script>
     </body>

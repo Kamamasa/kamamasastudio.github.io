@@ -4,7 +4,7 @@
 html {
     box-sizing: border-box;
     font-size: 16px;
-    background: linear-gradient(135deg, #445cc8 0%, #542980 100%);
+    background: linear-gradient(160deg, #101010 0%, #101020 50%, #202040 100%);
     min-height: 100vh;
     }
     *, *::before, *::after {
@@ -13,11 +13,13 @@ html {
 
 body {
     font-family: "Noto Sans JP", sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
     margin: 0;
     padding: 0;
-    min-width: 400px;/* 最小幅400px */
+    min-width: 360px;/* 最小幅360px */
+    overflow-x: hidden;
 }
+
 
     
 /* ヘッダー */
@@ -64,7 +66,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.topnav div{
+#top-nowpage{
     color: #ff0;
     text-decoration: none;
     position: relative;
@@ -85,16 +87,8 @@ body {
     transition: all 0.3s ease;
     transform: translateX(-50%);
 }
-.topnav div::before{
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
+#top-nowpage::before{
     background: linear-gradient(90deg, #FF50FF, #ff5f00);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
 }
 
 
@@ -102,11 +96,8 @@ body {
     color: #00d90d;
     transform: translateY(-2px);
 }
-.topnav div:hover {
-    transform: translateY(-2px);
-}
 
-.topnav a:hover::before , .topnav div:hover::before {
+.topnav a:hover::before {
     width: 100%;
 }
 
@@ -191,14 +182,11 @@ body {
     color: #00d90d;
     transform: scale(1.1);
 }
-.fixnav div{
+#fix-nowpage{
     color:#ff0;
     text-decoration: none;
     transition: all 0.3s ease;
     cursor: pointer;
-}
-.fixnav div:hover {
-    transform: scale(1.1);
 }
 .fixed-header {
     display: flex;
@@ -319,7 +307,7 @@ body {
     text-decoration: none;
     transition:all 0.3s ease;
 }
-.hamburger-menu div {
+#hamburger-nowpage {
     display: block;
     color: #ff0;
     font-size: 24px;
@@ -327,7 +315,7 @@ body {
     transition:all 0.3s ease;
     cursor: pointer;
 }
-.nowpage-detail {
+#nowpage-detail {
     color:#ff0;
 }
 
@@ -398,6 +386,11 @@ body {
     display: block;
     height: 2000px;
 }
+.spacer_full
+{
+    flex-grow: 1;
+}
+
 
 /* フッター */
 footer {
@@ -406,4 +399,5 @@ footer {
     padding: 10px;
     text-align: center;
     bottom: 0;
+    margin-top: 0;
 }
