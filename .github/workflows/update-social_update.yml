@@ -1,0 +1,330 @@
+name: Update Social Media Data
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 毎日0時に実行
+  workflow_dispatch: # 手動実行も可能
+
+jobs:
+  update-social-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm init -y
+        npm install axios
+        
+    - name: Create and run Twitter data fetch script
+      env:
+        TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+        TWITTER_USER_ID: ${{ secrets.TWITTER_USER_ID }}
+      run: |
+        cat > fetch-twitter.js << 'EOF'
+        const axios = require('axios');
+        const fs = require('fs');
+        const path = require('path');
+        
+        // 環境変数から認証情報を取得
+        const BEARER_TOKEN = process.env.TWITTER_BEARER_TOKEN;
+        const USER_ID = process.env.TWITTER_USER_ID;
+        
+        console.log('Environment check:');
+        console.log('BEARER_TOKEN:', BEARER_TOKEN ? 'Set (length: ' + BEARER_TOKEN.length + ')' : 'Not set');
+        console.log('USER_ID:', USER_ID || 'Not set');
+        
+        if (!BEARER_TOKEN || !USER_ID) {
+            console.error('必要な環境変数が設定されていません');
+            process.exit(1);
+        }
+        
+        const headers = {
+            'Authorization': `Bearer ${BEARER_TOKEN}`,
+            'Content-Type': 'application/json',
+        };
+        
+        async function fetchWithRetry(url, options, maxRetries = 3) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await axios.get(url, options);
+                    return response;
+                } catch (error) {
+                    console.log(`Attempt ${i + 1} failed:`, error.response?.status, error.response?.statusText);
+                    if (i === maxRetries - 1) throw error;
+                    
+                    console.log(`Retrying in ${(i + 1) * 2} seconds...`);
+                    await new Promise(resolve => setTimeout(resolve, (i + 1) * 2000));
+                }
+            }
+        }
+        
+        async function fetchUserInfo() {
+            try {
+                console.log('Fetching user info...');
+                const response = await fetchWithRetry(
+                    `https://api.twitter.com/2/users/${USER_ID}?user.fields=public_metrics`,
+                    { headers }
+                );
+                
+                console.log('API Response status:', response.status);
+                const user = response.data.data;
+                console.log('User info fetched successfully:', user.username);
+                
+                return {
+                    name: user.name,
+                    username: user.username,
+                    followers_count: user.public_metrics.followers_count,
+                    following_count: user.public_metrics.following_count,
+                    tweet_count: user.public_metrics.tweet_count
+                };
+            } catch (error) {
+                console.error('ユーザー情報取得エラー:');
+                console.error('Status:', error.response?.status);
+                console.error('Data:', JSON.stringify(error.response?.data, null, 2));
+                throw error;
+            }
+        }
+        
+        async function main() {
+            try {
+                console.log('=== Twitter データ取得開始 ===');
+                console.log('Timestamp:', new Date().toISOString());
+                
+                const userInfo = await fetchUserInfo();
+                
+                const data = {
+                    lastUpdated: new Date().toISOString(),
+                    user: userInfo
+                };
+                
+                // ディレクトリが存在しない場合は作成
+                const outputPath = 'site_data/json/twitter_data.json';
+                const outputDir = path.dirname(outputPath);
+                
+                console.log('Creating output directory:', outputDir);
+                if (!fs.existsSync(outputDir)) {
+                    fs.mkdirSync(outputDir, { recursive: true });
+                }
+                
+                // JSONファイルに保存
+                console.log('Writing to:', outputPath);
+                fs.writeFileSync(
+                    outputPath,
+                    JSON.stringify(data, null, 2),
+                    'utf8'
+                );
+                
+                console.log('=== Twitter データ更新完了 ===');
+                console.log(`ユーザー: @${userInfo.username} (${userInfo.name})`);
+                console.log(`フォロワー数: ${userInfo.followers_count.toLocaleString()}`);
+                console.log(`フォロー数: ${userInfo.following_count.toLocaleString()}`);
+                console.log(`総ツイート数: ${userInfo.tweet_count.toLocaleString()}`);
+                
+                // ファイルが正常に作成されたか確認
+                if (fs.existsSync(outputPath)) {
+                    const fileSize = fs.statSync(outputPath).size;
+                    console.log(`ファイルサイズ: ${fileSize} bytes`);
+                } else {
+                    throw new Error('JSONファイルの作成に失敗しました');
+                }
+                
+            } catch (error) {
+                console.error('=== エラー発生 ===');
+                console.error('Error:', error.message);
+                console.error('Stack:', error.stack);
+                process.exit(1);
+            }
+        }
+        
+        main();
+        EOF
+        
+        echo "Running Twitter data fetch..."
+        node fetch-twitter.js
+        
+    - name: Fetch YouTube Data
+      env:
+        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+      run: |
+        echo "=== YouTube データ取得開始 ==="
+        
+        # YouTubeの最新動画を取得
+        SEARCH_RESPONSE=$(curl -s "https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=3&type=video")
+        
+        if [ $? -ne 0 ]; then
+          echo "YouTube検索APIの呼び出しに失敗しました"
+          exit 1
+        fi
+        
+        # 動画IDを抽出
+        VIDEO_IDS=$(echo "$SEARCH_RESPONSE" | jq -r '.items[].id.videoId' | tr '\n' ',' | sed 's/,$//')
+        
+        if [ -z "$VIDEO_IDS" ]; then
+          echo "動画IDの取得に失敗しました"
+          exit 1
+        fi
+        
+        echo "取得した動画ID: $VIDEO_IDS"
+        
+        # 再生数などの統計情報を取得
+        STATS_RESPONSE=$(curl -s "https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&id=${VIDEO_IDS}&part=statistics,snippet")
+        
+        if [ $? -ne 0 ]; then
+          echo "YouTube統計APIの呼び出しに失敗しました"
+          exit 1
+        fi
+        
+        # ディレクトリ作成
+        mkdir -p site_data/json
+        
+        # JSONファイルとして保存
+        echo "$STATS_RESPONSE" > site_data/json/youtube_data.json
+        
+        echo "=== YouTube データ更新完了 ==="
+        
+    - name: Create YouTube data formatter script
+      run: |
+        cat > youtube-data.js << 'EOF'
+        const fs = require('fs');
+        const path = require('path');
+        
+        try {
+            console.log('=== YouTube データ整形開始 ===');
+            
+            const inputPath = 'site_data/json/youtube_data.json';
+            const outputPath = 'site_data/json/youtube_formatted.json';
+            
+            if (!fs.existsSync(inputPath)) {
+                throw new Error('YouTube データファイルが見つかりません');
+            }
+            
+            const rawData = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
+            
+            const formattedData = {
+                lastUpdated: new Date().toISOString(),
+                videos: rawData.items ? rawData.items.map(item => ({
+                    id: item.id,
+                    title: item.snippet.title,
+                    description: item.snippet.description.substring(0, 200) + '...',
+                    publishedAt: item.snippet.publishedAt,
+                    thumbnail: item.snippet.thumbnails.medium.url,
+                    statistics: {
+                        viewCount: parseInt(item.statistics.viewCount || '0'),
+                        likeCount: parseInt(item.statistics.likeCount || '0'),
+                        commentCount: parseInt(item.statistics.commentCount || '0')
+                    }
+                })) : []
+            };
+            
+            fs.writeFileSync(outputPath, JSON.stringify(formattedData, null, 2), 'utf8');
+            
+            console.log(`整形済みデータを保存: ${outputPath}`);
+            console.log(`動画数: ${formattedData.videos.length}`);
+            
+            // 元のファイルを削除して整形済みファイルをリネーム
+            fs.unlinkSync(inputPath);
+            fs.renameSync(outputPath, inputPath);
+            
+            console.log('=== YouTube データ整形完了 ===');
+            
+        } catch (error) {
+            console.error('YouTube データ整形エラー:', error.message);
+            process.exit(1);
+        }
+        EOF
+        
+    - name: Format YouTube data
+      run: |
+        echo "Running YouTube data formatter..."
+        node youtube-data.js
+        
+    - name: Check generated files
+      run: |
+        echo "=== 生成されたファイルの確認 ==="
+        
+        if [ -f "site_data/json/twitter_data.json" ]; then
+          echo "✅ Twitter データファイルが存在します"
+          echo "ファイルサイズ: $(stat -c%s site_data/json/twitter_data.json) bytes"
+        else
+          echo "❌ Twitter データファイルが見つかりません"
+        fi
+        
+        if [ -f "site_data/json/youtube_data.json" ]; then
+          echo "✅ YouTube データファイルが存在します"
+          echo "ファイルサイズ: $(stat -c%s site_data/json/youtube_data.json) bytes"
+        else
+          echo "❌ YouTube データファイルが見つかりません"
+        fi
+        
+        echo -e "\n生成されたJSONファイル一覧:"
+        find site_data -name "*.json" -type f -exec ls -la {} \;
+        
+    - name: Check for data changes
+      id: check_changes
+      run: |
+        # 既存のデータと比較するため、一時的にgh-pagesブランチをチェックアウト
+        git fetch origin gh-pages:gh-pages 2>/dev/null || echo "gh-pages branch not found, first run"
+        
+        # 変更があるかチェック
+        CHANGES_DETECTED=false
+        
+        if git show gh-pages:site_data/json/twitter_data.json 2>/dev/null > /tmp/old_twitter.json; then
+          # フォロワー数など、意味のある変更のみチェック
+          OLD_FOLLOWERS=$(cat /tmp/old_twitter.json | jq -r '.user.followers_count // 0')
+          NEW_FOLLOWERS=$(cat site_data/json/twitter_data.json | jq -r '.user.followers_count // 0')
+          
+          # フォロワー数が10以上変化した場合のみ更新
+          FOLLOWER_DIFF=$((NEW_FOLLOWERS - OLD_FOLLOWERS))
+          if [ ${FOLLOWER_DIFF#-} -ge 10 ]; then
+            echo "Twitter followers changed significantly: $OLD_FOLLOWERS -> $NEW_FOLLOWERS"
+            CHANGES_DETECTED=true
+          fi
+        else
+          echo "No existing Twitter data found, will update"
+          CHANGES_DETECTED=true
+        fi
+        
+        if git show gh-pages:site_data/json/youtube_data.json 2>/dev/null > /tmp/old_youtube.json; then
+          # 新しい動画があるかチェック
+          OLD_VIDEO_COUNT=$(cat /tmp/old_youtube.json | jq -r '.videos | length')
+          NEW_VIDEO_COUNT=$(cat site_data/json/youtube_data.json | jq -r '.videos | length')
+          
+          # 最新動画のIDをチェック
+          OLD_LATEST_ID=$(cat /tmp/old_youtube.json | jq -r '.videos[0].id // ""')
+          NEW_LATEST_ID=$(cat site_data/json/youtube_data.json | jq -r '.videos[0].id // ""')
+          
+          if [ "$OLD_LATEST_ID" != "$NEW_LATEST_ID" ] || [ "$OLD_VIDEO_COUNT" != "$NEW_VIDEO_COUNT" ]; then
+            echo "YouTube content changed: new video or count changed"
+            CHANGES_DETECTED=true
+          fi
+        else
+          echo "No existing YouTube data found, will update"
+          CHANGES_DETECTED=true
+        fi
+        
+        echo "changes_detected=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+        
+    - name: Deploy to gh-pages branch (only if changes detected)
+      if: steps.check_changes.outputs.changes_detected == 'true'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site_data
+        publish_branch: gh-pages
+        destination_dir: .
+        force_orphan: false
+        commit_message: "📊 Update social media data"
+        
+    - name: Skip deployment message
+      if: steps.check_changes.outputs.changes_detected == 'false'
+      run: |
+        echo "⏭️ No significant changes detected, skipping deployment"
