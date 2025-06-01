@@ -11,8 +11,8 @@ async function loadYouTubeVideos() {
         
         // 最終更新時刻を表示
         const lastUpdated = new Date(data.lastUpdated);
-        document.getElementById('last-updated').textContent = 
-            `最終更新: ${lastUpdated.toLocaleDateString('ja-JP')} ${lastUpdated.toLocaleTimeString('ja-JP')}`;
+        console.log(`Youtube 最終更新: ${lastUpdated.toLocaleDateString('ja-JP')} ${lastUpdated.toLocaleTimeString('ja-JP')}`)
+
         
     } catch (error) {
         console.error('Error loading YouTube videos:', error);
