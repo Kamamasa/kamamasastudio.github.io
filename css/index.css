@@ -793,14 +793,6 @@ footer {
 .loading { color: #aaa; }
 .error { color: #ff6b6b; background: rgba(255, 107, 107, 0.05); border-radius: 5px; }
 
-.last-updated {
-    text-align: right;
-    color: #777;
-    font-size: clamp(0.625rem, 1.5vw, 0.75rem); /* 10px, 可変, 12px */
-    margin-top: 15px;
-}
-
-
 .twitter-section {
     position: relative;
     width: 100%;
@@ -981,8 +973,8 @@ footer {
     background-color: #FF0000;
 }
 .social-icon.github:hover {
-    background-color: #333; /* もしくは #181717 */
+    background-color: #333;
 }
-.social-icon.email:hover {
-    background-color: #c71610; /* Gmailっぽい赤など、お好みで */
+.social-icon.twitch:hover {
+    background-color: #9c27b0;
 }
