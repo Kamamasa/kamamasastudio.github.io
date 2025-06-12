@@ -1,3 +1,97 @@
+/**
+ * マークダウン内の特殊記法をボタンに変換する
+ * @param {string} markdownText - 変換前のマークダウンテキスト
+ * @returns {string} - ボタン記法が変換されたマークダウンテキスト
+ */
+function parseCustomButtons(markdownText) {
+    let result = markdownText;
+
+    // ボタン記法を個別に処理（順序重要：長いパターンから先に処理）
+    
+    // [!download](URL "テキスト") または [!download](URL)
+    result = result.replace(/\[!download\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
+        const buttonText = text || 'ダウンロード';
+        const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" class="btn btn-download"${target}>${buttonText}</a>`;
+    });
+
+    // [!github](URL "テキスト") または [!github](URL)
+    result = result.replace(/\[!github\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
+        const buttonText = text || 'GitHubで見る';
+        const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" class="btn btn-github f"${target}>${buttonText}</a>`;
+    });
+
+    // [!link](URL "テキスト") または [!link](URL)
+    result = result.replace(/\[!link\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
+        const buttonText = text || 'リンクを開く';
+        const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" class="btn btn-link"${target}>${buttonText}</a>`;
+    });
+
+    // [!demo](URL "テキスト") または [!demo](URL)
+    result = result.replace(/\[!demo\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
+        const buttonText = text || 'デモを見る';
+        const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" class="btn btn-demo"${target}>${buttonText}</a>`;
+    });
+
+    // [!related](URL "テキスト") または [!related](URL)
+    result = result.replace(/\[!related\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
+        const buttonText = text || '関連コンテンツ';
+        const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" class="btn btn-related"${target}>${buttonText}</a>`;
+    });
+
+    // [!warning](URL "テキスト") または [!warning](URL)
+    result = result.replace(/\[!warning\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
+        const buttonText = text || '注意事項';
+        const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" class="btn btn-warning"${target}>${buttonText}</a>`;
+    });
+
+    // [!info](URL "テキスト") または [!info](URL)
+    result = result.replace(/\[!info\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
+        const buttonText = text || '詳細情報';
+        const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" class="btn btn-info"${target}>${buttonText}</a>`;
+    });
+
+    // [!secondary](URL "テキスト") または [!secondary](URL)
+    result = result.replace(/\[!secondary\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
+        const buttonText = text || 'その他';
+        const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" class="btn btn-secondary"${target}>${buttonText}</a>`;
+    });
+
+    // ボタングループ記法の処理 [!group] ... [!/group]
+    result = result.replace(/\[!group\]([\s\S]*?)\[!\/group\]/g, (match, content) => {
+        return `<div class="btn-group">${content}</div>`;
+    });
+
+    // 中央寄せボタン記法の処理 [!center] ... [!/center]
+    result = result.replace(/\[!center\]([\s\S]*?)\[!\/center\]/g, (match, content) => {
+        const centeredContent = content.replace(/class="(btn[^"]*)"/, 'class="$1 btn-center"');
+        return centeredContent;
+    });
+
+    // 横幅いっぱいボタン記法の処理 [!full] ... [!/full]
+    result = result.replace(/\[!full\]([\s\S]*?)\[!\/full\]/g, (match, content) => {
+        const fullContent = content.replace(/class="(btn[^"]*)"/, 'class="$1 btn-full"');
+        return fullContent;
+    });
+
+    // サイズ修飾子の処理
+    result = result.replace(/\[!(small|large)-/g, '[!');
+    result = result.replace(/class="(btn[^"]*)"([^>]*>)([^<]*)(small|large)-/g, (match, classes, attrs, text, size) => {
+        const sizeClass = size === 'small' ? 'btn-sm' : 'btn-lg';
+        return `class="${classes} ${sizeClass}"${attrs}${text.replace(size + '-', '')}`;
+    });
+
+    return result;
+}
+
+// 本題
 document.addEventListener('DOMContentLoaded', async () => {
     const mainContent = document.getElementById('detail-main-content');
     const loadingSpinner = document.getElementById('loading-spinner');
@@ -15,18 +109,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             fetch(`../json/projects_list_${category}.json`),
             fetch(`../article/project_${category}/${projectId}.md`).then(res => {
                 if (!res.ok) throw new Error(`マークダウンファイルが見つかりません: ${res.statusText}`);
-                return res.text(); // テキストとして解決
+                return res.text();
             })
         ]);
 
         const projectsList = await metaResponse.json();
-        const markdownText = markdownResponse; // 取得したテキストそのもの
+        let markdownText = markdownResponse;
 
         const projectMeta = projectsList.find(p => p.id === projectId);
         if (!projectMeta) {
             throw new Error('指定されたプロジェクトが見つかりませんでした。');
         }
 
+        // 強調ワード
+        const importantTags = ['二次利用禁止','三次利用禁止', 'バグあり', '試作品', '取扱注意'];
+        
         // HTMLコンテンツを生成
         const contentHTML = `
             <div class="project-header">
@@ -36,26 +133,28 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <span><i class="fa-solid fa-arrows-rotate"></i> 更新: ${projectMeta.updateDate}</span>
                 </div>
                 <div class="project-tech">
-                    ${projectMeta.techStack.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                    ${projectMeta.techStack.map(tech => {
+                        const isImportant = importantTags.includes(tech);
+                        return `<span class="tech-tag ${isImportant ? 'important-tag' : ''}">${tech}</span>`;
+                    }).join('')}
                 </div>
             </div>
             <div id="markdown-content" class="markdown-content">
-                <!-- マークダウン本文がここに挿入される -->
+                <!-- マークダウンコンテンツがここに入る -->
             </div>
             <div class="back-button-container">
-                <a href="projects.html" class="back-button">
-                    <i class="fa-solid fa-arrow-left"></i> プロジェクト一覧へ戻る
-                </a>
+                <a href="projects.html" class="back-button">プロジェクト一覧へ戻る</a>
             </div>
         `;
         
         loadingSpinner.style.display = 'none';
         mainContent.innerHTML = contentHTML;
 
-        // マークダウンをHTMLに変換して表示
+        // カスタムボタン記法を処理してからマークダウンを変換
         if (markdownText) {
+            const processedMarkdown = parseCustomButtons(markdownText);
             const markdownContainer = document.getElementById('markdown-content');
-            markdownContainer.innerHTML = marked.parse(markdownText);
+            markdownContainer.innerHTML = marked.parse(processedMarkdown);
         }
 
     } catch (error) {

@@ -500,19 +500,21 @@ async function getCategoryData(category) {
 
 
 // プロジェクトリストを生成する関数
+// projects.js 内の generateProjectList 関数をまるごと置き換え
+
 function generateProjectList(category, projects) {
     if (!projects || projects.length === 0) {
         return '<div class="empty-state"><div>Coming Soon...</div></div>';
     }
 
-    return projects.map((project, index) => {
+    return projects.map(project => {
         const projectId = project.id;
         
-        // 音楽プレーヤー（音楽タブのみ）
+        const importantKeywords = ['二次利用禁止','三次利用禁止', 'バグあり', '試作品', '取扱注意'];
+
         const musicPlayer = category === 'music' && project.audioPath ? 
             MusicPlayer.generatePlayerHTML(projectId, project.audioPath) : '';
         
-        // アクションボタン（音楽タブはダウンロード、他は詳細）
         let actionSection = '';
         if (category === 'music' && project.audioPath && project.dl_type) {
             actionSection = DownloadManager.generateDownloadHTML(projectId, project.audioPath, project.dl_type);
@@ -521,7 +523,7 @@ function generateProjectList(category, projects) {
         }
         
         return `
-            <div class="project-item">
+            <div class="project-item" data-project-id="${projectId}">
                 <div class="project-main-content">
                     <div class="project-info">
                         <h3 class="project-title">${project.title}</h3>
@@ -533,11 +535,15 @@ function generateProjectList(category, projects) {
                             ${project.description}
                         </div>
                         <div class="project-tech">
-                            ${project.techStack.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                            ${project.techStack.map(tech => {
+                                const isImportant = importantKeywords.includes(tech);
+                                const tagClass = isImportant ? 'tech-tag important-tag' : 'tech-tag';
+                                return `<span class="${tagClass}">${tech}</span>`;
+                            }).join('')}
                         </div>
                     </div>
                     
-                    ${ category === 'music' ? // musicタブの場合のみアクションセクションを右側に
+                    ${ category === 'music' ? 
                         `<div class="project-actions">
                             ${actionSection}
                          </div>` 
@@ -547,7 +553,7 @@ function generateProjectList(category, projects) {
 
                 ${musicPlayer}
 
-                ${ category !== 'music' ? // musicタブ以外は従来通り下に表示
+                ${ category !== 'music' ?
                     actionSection : ''
                 }
             </div>

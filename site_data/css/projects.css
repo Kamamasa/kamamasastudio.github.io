@@ -381,6 +381,26 @@ body{display: flex;flex-direction:column;min-height: 100%;}
     color: #A7F3D0;
 }
 */
+.tech-tag.important-tag {
+    background: rgba(250,100,100,0.3) !important;
+    color: #FEF2F2 !important;
+    border-color: #F87171 !important;
+    font-weight: 700 !important;
+    animation: pulse-red 2.5s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+@keyframes pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(248, 113, 113, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(248, 113, 113, 0);
+    }
+}
+
+
 .empty-state {
     text-align: center;
     padding: 40px 20px;
