@@ -1,0 +1,11 @@
+[
+    {
+        "title": "彼誰時",
+        "publishDate": "2025/06/12",
+        "updateDate": "2022/12",
+        "description": "StudioOne 6で初めてまともに作ったもの。実はしれっとループ対応",
+        "techStack": ["StudioOne 6","フリー"],
+        "audioPath": "https://dl.kamamasastudio.com/Public/music/kawataredoki/彼誰時.mp3",
+        "dl_type": "MP3(標準 | 320kbps), FLAC(高音質 | 16bit/44.1kHz), WAV(RAW | 32bit/96kHz)"
+    }
+]

@@ -1,0 +1,19 @@
+{
+  "articles": [
+    {
+        "id": "2025-06-11",
+        "title": "テスト投稿を兼ねた記事",
+        "date": "2025-06-11",
+        "summary": "テスト文章",
+        "thumbnail": "article/2025-06-11/top_img.jpg",
+        "hasImage": true,
+        "tags": ["雑記"],
+        "category": "雑記"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2025-06-10",
+    "totalArticles": 1,
+    "defaultThumbnail": "../img/default_thumbnail.jpg"
+  }
+}

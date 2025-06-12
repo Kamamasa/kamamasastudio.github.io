@@ -4,10 +4,10 @@
         <title>Projects | KamamasaStudio</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="KamamasaStudio is a personal website showcasing various projects and works.">
         <link rel="stylesheet" href="../css/projects.css">
         <link rel="stylesheet" href="../css/default.css">
         <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/site_data/css/icons.css">
     </head>
     <body>
         <header class="top-header">
@@ -72,10 +72,39 @@
         <!-- Main content -->
         <div class="contents">
             <main class="main-content">
+                <div class="title-container">
                     <h1>Projects</h1>
-                    <p>にへへへへこの草ハンバーグの味がするこの草ハンバーグの味がする</p>
+                </div>
+                <div class="body-container">
+                    <!-- タブナビゲーション -->
+                    <div class="tab-navigation">
+                        <button class="tab-button active music" onclick="showTab('music')">Music</button>
+                        <button class="tab-button programming" onclick="showTab('programming')">Programming</button>
+                        <button class="tab-button game" onclick="showTab('game')">Game</button>
+                    </div>
+
+                    <!-- Music Tab -->
+                    <div id="music" class="tab-content active music">
+                        <div class="project-list">
+                            <!-- 動的生成 -->
+                        </div>
+                    </div>
+
+                    <!-- Programming Tab -->
+                    <div id="programming" class="tab-content programming">
+                        <div class="project-list">
+                            <!-- 動的生成 -->
+                        </div>
+                    </div>
+
+                    <!-- Game Tab -->
+                    <div id="game" class="tab-content game">
+                        <div class="project-list">
+                            <!-- 動的生成 -->
+                        </div>
+                    </div>
+                </div>
             </main>
-            <div class="spacer_big"></div>
         </div> 
         <div class="spacer"></div>
         <footer>
