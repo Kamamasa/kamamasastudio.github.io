@@ -1,10 +1,10 @@
 [
     {
+        "id":"game_nihon",
         "title": "日本全土制圧戦",
         "publishDate": "2019/07",
         "updateDate": "2021/03/07",
-        "description": "StudioOne 6で初めてまともに作ったもの。",
-        "techStack": ["RPG","VBScript","バッチ","バグあり"],
-        "id":"game_nihon"
+        "description": "プログラミングというものに触れた初期の初期、初めて作った大作。",
+        "techStack": ["RPG","VBScript","バッチ","バグあり"]
     }
 ]

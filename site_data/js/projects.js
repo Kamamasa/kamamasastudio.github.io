@@ -500,7 +500,6 @@ async function getCategoryData(category) {
 
 
 // プロジェクトリストを生成する関数
-// projects.js 内の generateProjectList 関数をまるごと置き換え
 
 function generateProjectList(category, projects) {
     if (!projects || projects.length === 0) {
