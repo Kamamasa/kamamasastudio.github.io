@@ -7,6 +7,7 @@ html {
     background: linear-gradient(160deg, #101010 0%, #101020 50%, #202040 100%);
     background-attachment: fixed;
     min-height: 100vh;
+    scroll-behavior: smooth;
     }
     *, *::before, *::after {
         box-sizing: inherit;
@@ -20,7 +21,6 @@ body {
     min-width: 360px;/* 最小幅360px */
     overflow-x: hidden;
 }
-
 
     
 /* ヘッダー */

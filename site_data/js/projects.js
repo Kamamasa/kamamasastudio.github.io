@@ -522,7 +522,7 @@ function generateProjectList(category, projects) {
         }
         
         return `
-            <div class="project-item" data-project-id="${projectId}">
+            <div class="project-item" data-project-id="${projectId}" id="${projectId}">
                 <div class="project-main-content">
                     <div class="project-info">
                         <h3 class="project-title">${project.title}</h3>

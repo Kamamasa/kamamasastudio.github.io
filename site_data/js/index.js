@@ -46,7 +46,21 @@ function createNewsList(newsData) {
         
         // カテゴリから動的にtypeを生成
         const categoryType = getCategoryType(news.category);
-        
+        if (news.link && news.link.trim() !== '') {
+            li.style.cursor = 'pointer';
+            li.onclick = function() {
+                window.open(news.link, '_self');
+            };
+            // ホバー効果を追加
+            li.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(5px)';
+                this.style.transition = 'transform 0.2s ease';
+            });
+            li.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        }
+
         li.innerHTML = `
             <div class="news-header">
                 <h4 class="news-category" data-type="${categoryType}">${news.category}</h4>

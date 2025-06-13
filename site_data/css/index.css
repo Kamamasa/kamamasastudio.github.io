@@ -629,7 +629,8 @@ footer {
 }
 
 .news-view-all {
-    display: inline-block;
+    display: block;
+    width:fit-content;
     margin-left: auto;
     margin-top: 20px;
     color: #aaa;
