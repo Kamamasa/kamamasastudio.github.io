@@ -936,7 +936,7 @@ footer {
     justify-content: center;
     align-items: center;
     animation: fadeInIcons 0.8s ease-out 0.4s both;
-    gap:30px;
+    gap:10px;
 }
 
 @keyframes fadeInIcons {
@@ -972,9 +972,15 @@ footer {
 .social-icon.youtube:hover {
     background-color: #FF0000;
 }
+.social-icon.twitch:hover {
+    background-color: #9c27b0;
+}
 .social-icon.github:hover {
     background-color: #333;
 }
-.social-icon.twitch:hover {
-    background-color: #9c27b0;
+.social-icon.github:hover {
+    background-color: #333;
+}
+.fa-q:hover{
+    background-color: #00d90d;
 }

@@ -5,6 +5,7 @@ html {
     box-sizing: border-box;
     font-size: 16px;
     background: linear-gradient(160deg, #101010 0%, #101020 50%, #202040 100%);
+    background-attachment: fixed;
     min-height: 100vh;
     }
     *, *::before, *::after {

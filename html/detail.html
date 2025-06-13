@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Contact | KamamasaStudio</title>
+        <title>template | KamamasaStudio</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/contact.css">
         <link rel="stylesheet" href="../css/default.css">
+        <link rel="stylesheet" href="../css/detail.css">
+        <link rel="stylesheet" href="/site_data/css/icons.css">
         <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     </head>
     <body>
         <header class="top-header">
             <a href="../../index.html" class="top-title">KamamasaStudio</a>
             <div class="top-subtitle">-雑多な物置き場-</div>
             <nav class="topnav">
-                    <a href="../html/about.html">About</a>
+                    <div id="top-nowpage">About</div>
                     <a href="../html/projects.html">Projects</a>
                     <a href="../html/events.html">Events</a>
                     <a href="../html/notes.html">Notes</a>
                     <a href="../html/usage.html">Usage</a>
-                    <a href="../html/contact.html" id="top-nowpage">Contact</a>
+                    <a href="../html/contact.html">Contact</a>
             </nav>
             <button class="hamburger" id="hamburger">&#9776;</button>
         </header>
@@ -27,8 +29,8 @@
             <h2>MENU</h2>
             <ul>
                 <li>
-                    <a href="../html/about.html">About</a>
-                    <small class="detail">このサイト及び主について</small>
+                    <a id="hamburger-nowpage">About</a>
+                    <small class="detail" id="nowpage-detail">このサイト及び主について</small>
                 </li>
                 <li>
                     <a href="../html/projects.html">Projects</a>
@@ -47,8 +49,8 @@
                     <small class="detail">二次三次利用について</small>
                 </li>
                 <li>
-                    <a href="../html/contact.html" id="hamburger-nowpage">Contact</a>
-                    <small class="detail" id="nowpage-detail">連絡先等</small>
+                    <a href="../html/contact.html">Contact</a>
+                    <small class="detail">連絡先等</small>
                 </li>
             </ul>
             <button class="hamburger-close" id="hamburger-close">&#10005;</button>
@@ -57,12 +59,12 @@
         <header class="fixed-header">
             <a href="../../index.html" class="fix-title">KamamasaStudio</a>
             <nav class="fixnav">
-                    <a href="../html/about.html">About</a>
+                    <div id="fix-nowpage">About</div>
                     <a href="../html/projects.html">Projects</a>
                     <a href="../html/events.html">Events</a>
                     <a href="../html/notes.html">Notes</a>
                     <a href="../html/usage.html">Usage</a>
-                    <a href="../html/contact.html" id="fix-nowpage">Contact</a>
+                    <a href="../html/contact.html">Contact</a>
             </nav>
         </header>        
         
@@ -70,30 +72,17 @@
 
         <!-- Main content -->
         <div class="contents">
-            <main class="main-content">
-                <div class="title-container">
-                    <h1>Contact</h1>
-                </div>
-                <div class="body-container">
-                    <section class="contact-list">
-                        <a class="table_list" href="mailto:kamamasastudio.contact@gmail.com">
-                            <p class="list-title">メール(本当に重要な連絡用にお願いします)</p>
-                            <p class="list-string">kamamasastudio.contact@gmail.com</p>
-                        </a>
-                        <a class="table_list" href="http://www.twitter.com/messages/compose?recipient_id=1187677230421299201">
-                            <p class="list-title">Twitter(新X) DM (軽微な連絡用/ラフにコンタクト取りたいならココに)</p>
-                            <p class="list-string">@kamamasa2</p>
-                        </a>
-                        <p class="table_text">基本的には比較的早めに返信できるかと思いますが、真面目な連絡で1週間とか経って返信ねぇぞおいとかいう状況になりましたらメール再送等お願いします</p>
-                    </section>
-                </div>
-            </main>
-            <!-- ... -->
-        </div>
-        <div class="spacer_full"></div>
+        <main class="main-content" id="detail-main-content">
+            <!-- データが読み込まれるまでスピナーを表示 -->
+            <div class="loading-state" id="loading-spinner"></div>
+            
+            <!-- 動的代入 -->
+        </main>
+        </div> 
+        <div class="spacer"></div>
         <footer>
             <p>&copy; 2019-2025 KamamasaStudio. All rights reserved.</p>
         </footer>
-        <script src="../js/contact.js"></script>
+        <script src="../js/detail.js"></script>
         <script src="../js/default.js"></script>
     </body>
