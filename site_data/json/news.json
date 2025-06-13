@@ -1,0 +1,28 @@
+[
+    {
+        "category": "RELEASE",
+        "date": "2025-05-31",
+        "description": "新曲「幻想」をリリース",
+        "link":"/site_data/html/projects.html#:~:text=Game-,幻想,-公開%3A%202025/06"
+    },
+    {
+        "category": "UPDATE",
+        "date": "2025-05-31",
+        "description": "サイトサーバーを移転し、内容をすべて更新しました。<br>今後ともよろしくお願いします。"
+    },
+    {
+        "category": "PROJECT",
+        "date": "2025-05-17",
+        "description": "サイト及びサーバーの移転作業及び一新作業を開始しました。"
+    },
+    {
+        "category": "RELEASE",
+        "date": "2025-05-10",
+        "description": "新機能をリリースしました。<br>詳細については公式ドキュメントをご確認ください。"
+    },
+    {
+        "category": "MAINTENANCE",
+        "date": "2025-05-05",
+        "description": "定期メンテナンスを実施いたします。<br>作業時間中はサービスがご利用いただけません。"
+    }
+]

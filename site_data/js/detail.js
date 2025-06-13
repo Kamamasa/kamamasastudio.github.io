@@ -6,55 +6,55 @@
 function parseCustomButtons(markdownText) {
     let result = markdownText;
 
-    // ボタン記法を個別に処理（順序重要：長いパターンから先に処理）
+    // ボタン記法を個別に処理
     
     // [!download](URL "テキスト") または [!download](URL)
     result = result.replace(/\[!download\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
         const buttonText = text || 'ダウンロード';
         const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
-        return `<a href="${url}" class="btn btn-download"${target}>${buttonText}</a>`;
+        return `<a href="${url}" class="btn btn-download"${target}><i class="fa-solid fa-download"></i> ${buttonText}</a>`;
     });
 
     // [!github](URL "テキスト") または [!github](URL)
     result = result.replace(/\[!github\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
         const buttonText = text || 'GitHubで見る';
         const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
-        return `<a href="${url}" class="btn btn-github f"${target}>${buttonText}</a>`;
+        return `<a href="${url}" class="btn btn-github f"${target}><i class="fa-brands fa-github"></i> ${buttonText}</a>`;
     });
 
     // [!link](URL "テキスト") または [!link](URL)
     result = result.replace(/\[!link\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
         const buttonText = text || 'リンクを開く';
         const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
-        return `<a href="${url}" class="btn btn-link"${target}>${buttonText}</a>`;
+        return `<a href="${url}" class="btn btn-link"${target}><i class="fa-solid fa-link"></i> ${buttonText}</a>`;
     });
 
     // [!demo](URL "テキスト") または [!demo](URL)
     result = result.replace(/\[!demo\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
         const buttonText = text || 'デモを見る';
         const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
-        return `<a href="${url}" class="btn btn-demo"${target}>${buttonText}</a>`;
+        return `<a href="${url}" class="btn btn-demo"${target}><i class="fa-solid fa-laptop"></i> ${buttonText}</a>`;
     });
 
     // [!related](URL "テキスト") または [!related](URL)
     result = result.replace(/\[!related\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
         const buttonText = text || '関連コンテンツ';
         const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
-        return `<a href="${url}" class="btn btn-related"${target}>${buttonText}</a>`;
+        return `<a href="${url}" class="btn btn-related"${target}><i class="fa-solid fa-folder-open"></i> ${buttonText}</a>`;
     });
 
     // [!warning](URL "テキスト") または [!warning](URL)
     result = result.replace(/\[!warning\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
         const buttonText = text || '注意事項';
         const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
-        return `<a href="${url}" class="btn btn-warning"${target}>${buttonText}</a>`;
+        return `<a href="${url}" class="btn btn-warning"${target}><i class="fa-solid fa-triangle-exclamation"></i> ${buttonText}</a>`;
     });
 
     // [!info](URL "テキスト") または [!info](URL)
     result = result.replace(/\[!info\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
         const buttonText = text || '詳細情報';
         const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
-        return `<a href="${url}" class="btn btn-info"${target}>${buttonText}</a>`;
+        return `<a href="${url}" class="btn btn-info"${target}><i class="fa-solid fa-circle-info"></i> ${buttonText}</a>`;
     });
 
     // [!secondary](URL "テキスト") または [!secondary](URL)
@@ -62,6 +62,13 @@ function parseCustomButtons(markdownText) {
         const buttonText = text || 'その他';
         const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
         return `<a href="${url}" class="btn btn-secondary"${target}>${buttonText}</a>`;
+    });
+
+    // [!note](URL "テキスト") または [!note](URL)
+    result = result.replace(/\[!note\]\(([^)\s]+)(?:\s+"([^"]+)")?\)/g, (match, url, text) => {
+        const buttonText = text || 'ノートを見る';
+        const target = url.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}" class="btn btn-note"${target}><i class="fa-solid fa-book"></i> ${buttonText}</a>`;
     });
 
     // ボタングループ記法の処理 [!group] ... [!/group]

@@ -651,6 +651,12 @@ footer {
     box-shadow: 0 5px 15px rgba(255, 217, 61, 0.2);
 }
 
+.loading {
+    text-align: center;
+    color: #aaa;
+    font-size: 18px;
+    margin: 40px 0;
+}
 
 .youtube-section {
     position: relative;

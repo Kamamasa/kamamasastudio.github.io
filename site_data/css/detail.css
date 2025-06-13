@@ -261,7 +261,7 @@ body{display: flex;flex-direction:column;min-height: 100%;}
     border: 2px solid transparent;
     position: relative;
     overflow: hidden;
-    font-family: 'Font Awesome 5 Free';
+    width:300px;
 }
 
 /* ダウンロードボタン */
@@ -277,10 +277,6 @@ body{display: flex;flex-direction:column;min-height: 100%;}
     box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
     color: #fff;
 }
-.markdown-content .btn-download::before {
-    content: "";
-    margin-right: 8px;
-}
 
 /* リンクボタン */
 .markdown-content .btn-link {
@@ -294,10 +290,6 @@ body{display: flex;flex-direction:column;min-height: 100%;}
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(3, 105, 161, 0.4);
     color: #fff;
-}
-.markdown-content .btn-link::before {
-    content: "🔗 ";
-    margin-right: 8px;
 }
 
 /* GitHubボタン */
@@ -313,10 +305,6 @@ body{display: flex;flex-direction:column;min-height: 100%;}
     box-shadow: 0 6px 20px rgba(55, 65, 81, 0.4);
     color: #fff;
 }
-.markdown-content .btn-github::before {
-    content: "⚡ ";
-    margin-right: 8px;
-}
 
 /* 関連コンテンツボタン */
 .markdown-content .btn-related {
@@ -330,10 +318,6 @@ body{display: flex;flex-direction:column;min-height: 100%;}
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
     color: #fff;
-}
-.markdown-content .btn-related::before {
-    content: "📚 ";
-    margin-right: 8px;
 }
 
 /* デモ/プレビューボタン */
@@ -349,10 +333,6 @@ body{display: flex;flex-direction:column;min-height: 100%;}
     box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
     color: #fff;
 }
-.markdown-content .btn-demo::before {
-    content: "🎮 ";
-    margin-right: 8px;
-}
 
 /* 注意・警告ボタン */
 .markdown-content .btn-warning {
@@ -366,10 +346,6 @@ body{display: flex;flex-direction:column;min-height: 100%;}
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(217, 119, 6, 0.4);
     color: #fff;
-}
-.markdown-content .btn-warning::before {
-    content: "⚠️ ";
-    margin-right: 8px;
 }
 
 /* 情報ボタン */
@@ -385,9 +361,19 @@ body{display: flex;flex-direction:column;min-height: 100%;}
     box-shadow: 0 6px 20px rgba(8, 145, 178, 0.4);
     color: #fff;
 }
-.markdown-content .btn-info::before {
-    content: "ℹ️ ";
-    margin-right: 8px;
+
+/* NOTE | Qiita */
+.markdown-content .btn-note {
+    background: linear-gradient(135deg, #0891b2, #06b6d4);
+    color: #fff;
+    border-color: #0891b2;
+    box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3);
+}
+.markdown-content .btn-note:hover {
+    background: linear-gradient(135deg, #06b6d4, #22d3ee);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 145, 178, 0.4);
+    color: #fff;
 }
 
 /* セカンダリ（アウトライン）ボタン */

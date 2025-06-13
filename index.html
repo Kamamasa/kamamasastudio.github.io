@@ -1,78 +1,154 @@
-<!--公開フィルター-->
+<!DOCTYPE html>
 <html>
     <head>
+        <title>KamamasaStudio</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>＼トンテンカンテン／</title>
-        <style>
-            .modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0,0,0,0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 9999;
-                }
-
-                .modal-content {
-                background: #fff;
-                padding: 30px;
-                border-radius: 10px;
-                text-align: center;
-                }
-
-                .text {
-                    margin-bottom: 30px;
-                    line-height: 0.5;
-                }
-                #version {
-                    position:fixed;
-                    bottom: 0px;
-                    right: 0px;
-                    color: #000;
-                }
-        </style>
+        <meta name="description" content="色々なものを色々と色々している場所。">
+        <link rel="stylesheet" href="/site_data/css/index.css">
+        <link rel="icon" href="/site_data/img/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/site_data/css/icons.css">
     </head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VHNZ54MRC5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-VHNZ54MRC5');
+    </script>
+
     <body>
-        <div id="password-modal" class="modal">
-        <div class="modal-content">
-            <div class="text">
-                <h2>サイト建築中に付きアクセス制限中</h2>
-                <h3>パスワードを入力してください</h3>
-            </div>
-            <!--雑に設定-->
-            <input type="password" id="password-input" placeholder="パスワード" />
-            <button onclick="checkPassword()">OK</button>
-            <p id="error-msg" style="color: red; display: none;">パスワードが違います</p>
+        <header class="top-header">
+            <a href="index.html" class="top-title">KamamasaStudio</a>
+            <div class="top-subtitle">-雑多な物置き場-</div>
+            <nav class="topnav">
+                    <a href="/site_data/html/about.html">About</a>
+                    <a href="/site_data/html/projects.html">Projects</a>
+                    <a href="/site_data/html/events.html">Events</a>
+                    <a href="/site_data/html/notes.html">Notes</a>
+                    <a href="/site_data/html/usage.html">Usage</a>
+                    <a href="/site_data/html/contact.html">Contact</a>
+            </nav>
+            <button class="hamburger" id="hamburger">&#9776;</button>
+        </header>
+        <div class="menu-overlay" id="menu-overlay"></div>
+        <nav class="hamburger-menu" id="hamburger-menu">
+            <h2>MENU</h2>
+            <ul>
+                <li>
+                    <a href="/site_data/html/about.html">About</a>
+                    <small class="detail">このサイト及び主について</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/projects.html">Projects</a>
+                    <small class="detail">制作物などのまとめ置き場</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/events.html">Events</a>
+                    <small class="detail">双方向イベントなどの特設ページ</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/notes.html">Notes</a>
+                    <small class="detail">メモだの開発日記だのTipsだの</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/usage.html">Usage</a>
+                    <small class="detail">二次三次利用について</small>
+                </li>
+                <li>
+                    <a href="/site_data/html/contact.html">Contact</a>
+                    <small class="detail">連絡先等</small>
+                </li>
+
+            </ul>
+            <button class="hamburger-close" id="hamburger-close">&#10005;</button>
+        </nav>
+
+        <header class="fixed-header">
+            <a href="index.html" class="fix-title">KamamasaStudio</a>
+            <nav class="fixnav">
+                    <a href="/site_data/html/about.html">About</a>
+                    <a href="/site_data/html/projects.html">Projects</a>
+                    <a href="/site_data/html/events.html">Events</a>
+                    <a href="/site_data/html/notes.html">Notes</a>
+                    <a href="/site_data/html/usage.html">Usage</a>
+                    <a href="/site_data/html/contact.html">Contact</a>
+            </nav>
+        </header>        
+        
+        <div class="spacer"></div>
+
+        <!-- Main content -->
+
+        <div class="banner">
+            <div class="main-banner-content">
         </div>
+        
+        <div class="contents">
+            <main class="main-content">
+                <section class="news">
+                    <h3>NEWS</h3>
+                    <div>
+                        <ul class="news-list" id="newsList">
+                            <li class="loading">ニュースを読み込み中...</li>
+                        </ul>
+                    </div>
+                    <a href="/site_data/html/news.html" class="news-view-all">すべての内容を確認する>>></a>
+                </section>
+
+                <section class="youtube-section">
+                    <h3>LATEST YOUTUBE VIDEOS</h3>
+                    <div id="youtube-container">
+                        <div class="loading">動画を読み込み中...</div>
+                    </div>
+                </section>
+            </main>
+            <sub class="sub-content">
+                    <section class="twitter-section">
+                        <h3>TWITTER(X) INFO</h3>
+                        <div id="twitter-container">
+                            <div class="loading">Twitter情報を読み込み中...</div>
+                        </div>
+                        <div id="twitter-timeline-box">
+                        <a class="twitter-timeline" data-chrome="noheader noborders transparent" data-link-color="#8e1d08" data-lang="ja" data-height="500" data-dnt="true" data-theme="dark" href="https://twitter.com/Kamamasa2?ref_src=twsrc%5Etfw">Tweets by Kamamasa2</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        </div>
+                    </section>                        
+
+                    <section class="icons">
+                        <a href="https://twitter.com/Kamamasa2" aria-label="Twitter" class="social-icon twitter" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@KamamasaStudio" aria-label="YouTube" class="social-icon youtube" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="https://www.twitch.tv/kamamasa" aria-label="Twitch" class="social-icon twitch" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-twitch"></i>
+                        </a>
+                        <a href="https://github.com/Kamamasa" aria-label="GitHub" class="social-icon github" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="https://qiita.com/Kamamasa" aria-label="Qiita" class="social-icon fa-q" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-brands fa-qiita"></i>
+                        </a>
+                    </section>
+            </sub>
         </div>
-        <p id="version">Ver:0.4.0.1</p>
+        <div class="spacer"></div>
+        <footer>
+            <p>&copy; 2019-2025 KamamasaStudio. All rights reserved.</p>
+        </footer>
+
+        <script src="/site_data/js/index.js"></script>
+        <script src="/site_data/js/default.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const inputField = document.getElementById("password-input");
-
-                inputField.addEventListener("keydown", function (event) {
-                    if (event.key === "Enter" || event.keyCode === 13) {
-                        event.preventDefault();
-                        checkPassword();
-                    }
-                });
-            });
-
-            function checkPassword() {
-                const correctPassword = "password";
-                const input = document.getElementById("password-input").value;
-
-                if (input === correctPassword) {
-                    window.location.href = "/index2.html";
-                } else {
-                    document.getElementById("error-msg").style.display = "block";
-                }
-            }
+            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];
+                if(!d.getElementById(id)){js=d.createElement(s);js.id=id;
+                js.src="//platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js,fjs);}
+            }(document,"script","twitter-wjs");
         </script>
     </body>
+
+<!--last updated:2025-05-19 14:00-->
 </html>

@@ -5,7 +5,7 @@
         "title": "テスト投稿を兼ねた記事",
         "date": "2025-06-11",
         "summary": "テスト文章",
-        "thumbnail": "article/2025-06-11/top_img.jpg",
+        "thumbnail": "article/note/2025-06-11/top_img.jpg",
         "hasImage": true,
         "tags": ["雑記"],
         "category": "雑記"
