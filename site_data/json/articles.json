@@ -2,18 +2,17 @@
   "articles": [
     {
         "id": "2025-06-11",
-        "title": "テスト投稿を兼ねた記事",
-        "date": "2025-06-11",
-        "summary": "テスト文章",
+        "title": "サイト内に隠しこんだいろんな技術覚書",
+        "publishDate": "2025/05/11",
+        "updateDate": "2025/06/14",
+        "summary": "ちょっと本気出して色々楽に弄れるようにしてあるので一応まとめてみる",
         "thumbnail": "article/note/2025-06-11/top_img.jpg",
         "hasImage": true,
-        "tags": ["雑記"],
-        "category": "雑記"
+        "tags": ["HTML","CSS","JS","Markdown","ClaudFlare","HFS"],
+        "category": "技術"
     }
   ],
   "metadata": {
-    "lastUpdated": "2025-06-10",
-    "totalArticles": 1,
     "defaultThumbnail": "../img/default_thumbnail.jpg"
   }
 }
