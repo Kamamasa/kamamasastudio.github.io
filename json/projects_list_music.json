@@ -1,11 +1,22 @@
 [
     {
+        "id":"gensou",
+        "title": "幻想",
+        "publishDate": "2025/06/13",
+        "updateDate": "2025/06/13",
+        "description": "途中まで完成させてそこから1年ほど眠っていた娘。サイト公開記念に。",
+        "techStack": ["StudioOne 6","フリー","壮大"],
+        "audioPath": "https://dl.kamamasastudio.com/Public/music/gensou/幻想.mp3",
+        "dl_type": "MP3(標準 | 320kbps), FLAC(高音質 | 16bit/44.1kHz), WAV(RAW | 24bit/96kHz)"
+    },
+    {
+        "id":"kawataredoki",
         "title": "彼誰時",
         "publishDate": "2025/06/12",
         "updateDate": "2022/12",
         "description": "StudioOne 6で初めてまともに作ったもの。実はしれっとループ対応",
-        "techStack": ["StudioOne 6","フリー"],
+        "techStack": ["StudioOne 6","フリー","壮大"],
         "audioPath": "https://dl.kamamasastudio.com/Public/music/kawataredoki/彼誰時.mp3",
-        "dl_type": "MP3(標準 | 320kbps), FLAC(高音質 | 16bit/44.1kHz), WAV(RAW | 32bit/96kHz)"
+        "dl_type": "MP3(標準 | 320kbps), FLAC(高音質 | 16bit/44.1kHz), WAV(RAW | 24bit/96kHz)"
     }
 ]

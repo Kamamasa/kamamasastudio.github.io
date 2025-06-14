@@ -15,3 +15,19 @@ VBSを覚え始めてちょっとプログラミングに自信がついてき�
 当時はWindows10全盛期にWindowsXP+Vistaとかいうトンデモ環境で作り上げてたのでGUIとか知らない時代です、懐かしい。
 
 # ダウンロード
+[!full][!download](https://dl.kamamasastudio.com/Public/game/nihon_zendo/日本全土制圧戦.zip "日本全土制圧戦 本体をダウンロード")[!/full]
+<div style="text-align: center;">
+容量:214MB
+</div>
+<br>
+[!full][!download](https://dl.kamamasastudio.com/Public/game/nihon_zendo/日本全土制圧戦.vbs "日本全土制圧戦 ソースコードをダウンロード")[!/full]
+<div style="text-align: center;">
+ルートディレクトリに当該vbsファイルをおいて起動させてください
+</div>
+<br>
+[!full][!download](https://dl.kamamasastudio.com/Public/game/nihon_zendo/aojcsd_music.zip "日本全土制圧戦 拡張パックをダウンロード")[!/full]
+<div style="text-align: center;">
+欲しい人はどうぞ。 ただ容量664MBあるんでそこはご承知おきを。
+</div>
+
+

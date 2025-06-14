@@ -1,4 +1,7 @@
-html{height: 100%;min-height: 100%;}
+html{
+    height: 100%;
+    min-height: 100%;
+}
 body{display: flex;flex-direction:column;min-height: 100%;}
 .contents{
     display: flex;
@@ -23,6 +26,12 @@ body{display: flex;flex-direction:column;min-height: 100%;}
         transform: translateY(0);
     }
 }
+
+[id] {
+  /* 固定ヘッダーの高さ(60px) + 少しの余白(20px) = 80px */
+  scroll-margin-top: 150px; 
+}
+
 
 .main-content {
     position:relative;

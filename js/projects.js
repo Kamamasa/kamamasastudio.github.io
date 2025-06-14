@@ -500,7 +500,6 @@ async function getCategoryData(category) {
 
 
 // プロジェクトリストを生成する関数
-// projects.js 内の generateProjectList 関数をまるごと置き換え
 
 function generateProjectList(category, projects) {
     if (!projects || projects.length === 0) {
@@ -523,7 +522,7 @@ function generateProjectList(category, projects) {
         }
         
         return `
-            <div class="project-item" data-project-id="${projectId}">
+            <div class="project-item" data-project-id="${projectId}" id="${projectId}">
                 <div class="project-main-content">
                     <div class="project-info">
                         <h3 class="project-title">${project.title}</h3>

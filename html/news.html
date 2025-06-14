@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Projects | KamamasaStudio</title>
+        <title>NEWS | KamamasaStudio</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/projects.css">
+        <link rel="stylesheet" href="../css/news.css">
         <link rel="stylesheet" href="../css/default.css">
         <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
-        <link rel="stylesheet" href="/site_data/css/icons.css">
     </head>
     <body>
         <header class="top-header">
@@ -15,7 +14,7 @@
             <div class="top-subtitle">-雑多な物置き場-</div>
             <nav class="topnav">
                     <a href="../html/about.html">About</a>
-                    <a href="../html/projects.html" id="top-nowpage">Projects</a>
+                    <a href="../html/projects.html">Projects</a>
                     <a href="../html/events.html">Events</a>
                     <a href="../html/notes.html">Notes</a>
                     <a href="../html/usage.html">Usage</a>
@@ -32,8 +31,8 @@
                     <small class="detail">このサイト及び主について</small>
                 </li>
                 <li>
-                    <a href="../html/projects.html" id="hamburger-nowpage">Projects</a>
-                    <small class="detail" id="nowpage-detail">制作物などのまとめ置き場</small>
+                    <a href="../html/projects.html">Projects</a>
+                    <small class="detail">制作物などのまとめ置き場</small>
                 </li>
                 <li>
                     <a href="../html/events.html">Events</a>
@@ -59,7 +58,7 @@
             <a href="../../index.html" class="fix-title">KamamasaStudio</a>
             <nav class="fixnav">
                     <a href="../html/about.html">About</a>
-                    <a href="../html/projects.html" id="fix-nowpage">Projects</a>
+                    <a href="../html/projects.html">Projects</a>
                     <a href="../html/events.html">Events</a>
                     <a href="../html/notes.html">Notes</a>
                     <a href="../html/usage.html">Usage</a>
@@ -73,36 +72,12 @@
         <div class="contents">
             <main class="main-content">
                 <div class="title-container">
-                    <h1>Projects</h1>
+                    <h1>NEWS</h1>
                 </div>
                 <div class="body-container">
-                    <!-- タブナビゲーション -->
-                    <div class="tab-navigation">
-                        <button class="tab-button active music" onclick="showTab('music')">Music</button>
-                        <button class="tab-button programming" onclick="showTab('programming')">Programming</button>
-                        <button class="tab-button game" onclick="showTab('game')">Game</button>
-                    </div>
-
-                    <!-- Music Tab -->
-                    <div id="music" class="tab-content active music">
-                        <div class="project-list">
-                            <!-- 動的生成 -->
-                        </div>
-                    </div>
-
-                    <!-- Programming Tab -->
-                    <div id="programming" class="tab-content programming">
-                        <div class="project-list">
-                            <!-- 動的生成 -->
-                        </div>
-                    </div>
-
-                    <!-- Game Tab -->
-                    <div id="game" class="tab-content game">
-                        <div class="project-list">
-                            <!-- 動的生成 -->
-                        </div>
-                    </div>
+                    <ul class="news-list" id="newsList">
+                        <li class="loading">ニュースを読み込み中...</li>
+                    </ul>
                 </div>
             </main>
         </div> 
@@ -110,30 +85,6 @@
         <footer>
             <p>&copy; 2019-2025 KamamasaStudio. All rights reserved.</p>
         </footer>
-        <script src="../js/projects.js"></script>
+        <script src="../js/news.js"></script>
         <script src="../js/default.js"></script>
-        <script>
-            // ページのすべてのコンテンツが読み込まれた後に実行
-            window.addEventListener('load', () => {
-                // 現在のURLからハッシュ（#gensou など）を取得
-                const hash = window.location.hash;
-
-                if (hash) {
-                    try {
-                        // ハッシュに一致するIDを持つ要素を探す
-                        const targetElement = document.querySelector(hash);
-                        
-                        if (targetElement) {
-                            // 要素が見つかったら、そこへスクロール
-                            targetElement.scrollIntoView({
-                                behavior: 'auto', // 'smooth'だと動的生成時にうまくいかないことがあるため'auto'推奨
-                                block: 'start'
-                            });
-                        }
-                    } catch (e) {
-                        console.error('アンカーリンクの処理中にエラーが発生しました:', e);
-                    }
-                }
-            });
-        </script>
     </body>
