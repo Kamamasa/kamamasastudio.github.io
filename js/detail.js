@@ -112,9 +112,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             throw new Error('プロジェクト情報が不足しています。');
         }
 
+        let jsonPath,mdPath
+        jsonPath = `../json/projects_list_${category}.json`
+        mdPath = `../article/project_${category}/${projectId}.md`
+
         const [metaResponse, markdownResponse] = await Promise.all([
-            fetch(`../json/projects_list_${category}.json`),
-            fetch(`../article/project_${category}/${projectId}.md`).then(res => {
+            fetch(jsonPath),
+            fetch(mdPath).then(res => {
                 if (!res.ok) throw new Error(`マークダウンファイルが見つかりません: ${res.statusText}`);
                 return res.text();
             })
@@ -132,6 +136,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         const importantTags = ['二次利用禁止','三次利用禁止', 'バグあり', '試作品', '取扱注意'];
         
         // HTMLコンテンツを生成
+
+        document.title = projectMeta.title + " | Kamamasastudio";
+
         const contentHTML = `
             <div class="project-header">
                 <h1 class="project-title">${projectMeta.title}</h1>

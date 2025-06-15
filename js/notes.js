@@ -21,7 +21,7 @@ async function loadArticles() {
         // 記事カードを生成
         articles.forEach((article, index) => {
             const articleCard = document.createElement('a');
-            articleCard.href = `../article/${article.id}/article.html`;
+            articleCard.href = `../html/article.html?id=${article.id}&category=note`;
             articleCard.className = 'article-card';
             articleCard.style.animationDelay = `${(index + 1) * 0.1}s`;
             
@@ -55,7 +55,7 @@ async function loadArticles() {
                 <div class="card-content">
                     <div class="card-header">
                         <h2 class="card-title">${article.title}</h2>
-                        <p class="card-date">${formatDate(article.date)}</p>
+                        <p class="card-date">${formatDate(article.publishDate)}</p>
                         ${categoryHtml}
                     </div>
                     <p class="card-summary">${article.summary}</p>

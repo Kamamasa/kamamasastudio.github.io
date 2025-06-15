@@ -1,0 +1,562 @@
+/* projects.cssの基本スタイルを流用 */
+html{height: 100%;min-height: 100%;}
+
+[id] {
+  /* 固定ヘッダーの高さ(60px) + 少しの余白(20px) = 80px */
+  scroll-margin-top: 150px; 
+}
+
+body{display: flex;flex-direction:column;min-height: 100%;}
+.contents{
+    display: flex;
+    gap:30px;
+    margin:0px clamp(30px, calc((100vw - 1000px) * 0.33 + 30px), 150px);
+    animation: fadeInUp 1s ease-out 0.3s both;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    position:relative;
+    width: 100%;
+    max-width: 100%;
+    padding: 30px;
+    background: linear-gradient(145deg, #0F172A, #1E293B);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    border: 3px ridge rgba(16, 185, 129, 0.8);
+}
+
+/* 読み込みスピン演出 */
+.loading-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+.loading-state::after {
+    content: '';
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #A7F3D0; /* テーマカラー */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --- ここから詳細ページ専用スタイル --- */
+
+/* プロジェクトメタ情報 */
+.project-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-title {
+    color: #E2E8F0;
+    font-size: 2em;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    font-size: 0.9em;
+    color: #94A3B8;
+}
+.project-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.project-tech {
+    margin-top: 15px;
+}
+.project-category{
+    margin-bottom: 10px;
+}
+.category-tag
+{
+    padding: 5px 15px;
+    border-radius: 10px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+    display: inline-block;
+}
+
+.category-tag.tech {
+    background: rgba(94, 170, 168, 0.2);
+    color: #10B981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+.category-tag.design {
+    background: rgba(147, 51, 234, 0.2);
+    color: #A78BFA;
+    border: 1px solid rgba(147, 51, 234, 0.3);
+}
+.category-tag.diy{
+    background: rgba(234, 179, 8, 0.2);
+    color: #F59E0B;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+.category-tag.hobby{
+    background: rgba(244, 114, 182, 0.2);
+    color: #EC4899;
+    border: 1px solid rgba(244, 114, 182, 0.3);
+}
+.category-tag.travel{
+    background: rgba(59, 130, 246, 0.2);
+    color: #3B82F6;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+.category-tag.other{
+    background: rgba(156, 163, 175, 0.2);
+    color: #9CA3AF;
+    border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.tech-tag {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #A7F3D0;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+.tech-tag.important-tag {
+    background: rgba(250,100,100,0.3) !important;
+    color: #FEF2F2 !important;
+    border-color: #F87171 !important;
+    font-weight: 700 !important;
+    animation: pulse-red 2.5s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+@keyframes pulse-red {
+    0% {
+        box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(248, 113, 113, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(248, 113, 113, 0);
+    }
+}
+
+/* マークダウン本文のコンテナ */
+.markdown-content {
+    color: #CBD5E1;
+    line-height: 1.8;
+}
+
+.markdown-content .index-tag {
+    border-bottom: none;
+    text-decoration: none;
+    color: #CBD5E1;
+}
+.markdown-content .index-tag:hover{
+    background-color: transparent;
+}
+
+
+/* マークダウンから生成される要素のスタイル */
+.markdown-content h1, .markdown-content h2, .markdown-content h3 {
+    color: #A7F3D0;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+    padding-bottom: 8px;
+    margin: 40px 0 20px 0;
+}
+.markdown-content h1 { font-size: 1.8em; }
+.markdown-content h2 { font-size: 1.5em; }
+.markdown-content h3 { font-size: 1.2em; border-bottom: none; }
+
+.markdown-content p {
+    margin-bottom: 1em;
+}
+
+.markdown-content a {
+    color: #38BDF8;
+    text-decoration: none;
+    border-bottom: 1px dotted #38BDF8;
+    transition: color 0.2s, background-color 0.2s;
+}
+.markdown-content a:hover {
+    color: #fff;
+    background-color: rgba(56, 189, 248, 0.2);
+}
+
+.markdown-content ul, .markdown-content ol {
+    padding-left: 25px;
+    margin-bottom: 1em;
+}
+.markdown-content li {
+    margin-bottom: 0.5em;
+}
+
+.markdown-content blockquote {
+    border-left: 4px solid #64748B;
+    padding-left: 15px;
+    margin: 20px 0;
+    color: #94A3B8;
+    font-style: italic;
+}
+
+.markdown-content pre {
+    background-color: #020617; /* とても暗い背景 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 15px;
+    overflow-x: auto;
+    font-size: 0.9em;
+    margin-bottom: 1em;
+}
+.markdown-content code {
+    font-family: 'Courier New', Courier, monospace;
+}
+.markdown-content p > code { /* インラインコード */
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #A7F3D0;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+/* 文字揃え */
+.markdown-content .text-center { text-align: center; }
+.markdown-content .text-right { text-align: right; }
+
+/* 画像スタイル */
+.markdown-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin: 10px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+/* 標準のマークダウン画像 `![alt](src)` を中央寄せにする */
+.markdown-content p > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 画像回り込み */
+.markdown-content .img-float-left {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+.markdown-content .img-float-right {
+    float: right;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+/* 回り込み解除 (clearfixハック) */
+.markdown-content .clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* 戻るボタン */
+.back-button-container {
+    margin-top: 40px;
+    text-align: center;
+}
+.back-button {
+    display: inline-block;
+    padding: 12px 28px;
+    border: 1px solid #64748B;
+    color: #94A3B8;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.back-button:hover {
+    background-color: rgba(100, 116, 139, 0.2);
+    border-color: #94A3B8;
+    color: #E2E8F0;
+    transform: translateY(-2px);
+}
+
+
+/* マークダウン　ボタン要素*/
+
+/* ベースボタンスタイル */
+.markdown-content .btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 8px 4px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95em;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    width:300px;
+}
+
+/* ダウンロードボタン */
+.markdown-content .btn-download {
+    background: linear-gradient(135deg, #059669, #047857);
+    color: #fff;
+    border-color: #059669;
+    box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+}
+.markdown-content .btn-download:hover {
+    background: linear-gradient(135deg, #047857, #065f46);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.4);
+    color: #fff;
+}
+
+/* リンクボタン */
+.markdown-content .btn-link {
+    background: linear-gradient(135deg, #0369a1, #0284c7);
+    color: #fff;
+    border-color: #0369a1;
+    box-shadow: 0 4px 15px rgba(3, 105, 161, 0.3);
+}
+.markdown-content .btn-link:hover {
+    background: linear-gradient(135deg, #0284c7, #0ea5e9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(3, 105, 161, 0.4);
+    color: #fff;
+}
+
+/* GitHubボタン */
+.markdown-content .btn-github {
+    background: linear-gradient(135deg, #374151, #4b5563);
+    color: #fff;
+    border-color: #374151;
+    box-shadow: 0 4px 15px rgba(55, 65, 81, 0.3);
+}
+.markdown-content .btn-github:hover {
+    background: linear-gradient(135deg, #4b5563, #6b7280);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(55, 65, 81, 0.4);
+    color: #fff;
+}
+
+/* 関連コンテンツボタン */
+.markdown-content .btn-related {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+    color: #fff;
+    border-color: #7c3aed;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+.markdown-content .btn-related:hover {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+    color: #fff;
+}
+
+/* デモ/プレビューボタン */
+.markdown-content .btn-demo {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    color: #fff;
+    border-color: #dc2626;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+.markdown-content .btn-demo:hover {
+    background: linear-gradient(135deg, #ef4444, #f87171);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    color: #fff;
+}
+
+/* 注意・警告ボタン */
+.markdown-content .btn-warning {
+    background: linear-gradient(135deg, #d97706, #f59e0b);
+    color: #fff;
+    border-color: #d97706;
+    box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+}
+.markdown-content .btn-warning:hover {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(217, 119, 6, 0.4);
+    color: #fff;
+}
+
+/* 情報ボタン */
+.markdown-content .btn-info {
+    background: linear-gradient(135deg, #0891b2, #06b6d4);
+    color: #fff;
+    border-color: #0891b2;
+    box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3);
+}
+.markdown-content .btn-info:hover {
+    background: linear-gradient(135deg, #06b6d4, #22d3ee);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 145, 178, 0.4);
+    color: #fff;
+}
+
+/* NOTE | Qiita */
+.markdown-content .btn-note {
+    background: linear-gradient(135deg, #0891b2, #06b6d4);
+    color: #fff;
+    border-color: #0891b2;
+    box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3);
+}
+.markdown-content .btn-note:hover {
+    background: linear-gradient(135deg, #06b6d4, #22d3ee);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 145, 178, 0.4);
+    color: #fff;
+}
+
+/* セカンダリ（アウトライン）ボタン */
+.markdown-content .btn-secondary {
+    background: transparent;
+    color: #94A3B8;
+    border-color: #64748B;
+}
+.markdown-content .btn-secondary:hover {
+    background: rgba(100, 116, 139, 0.2);
+    color: #E2E8F0;
+    border-color: #94A3B8;
+    transform: translateY(-2px);
+}
+
+/* ボタンサイズバリエーション */
+.markdown-content .btn-sm {
+    padding: 8px 16px;
+    font-size: 0.85em;
+}
+.markdown-content .btn-lg {
+    padding: 16px 32px;
+    font-size: 1.1em;
+}
+
+/* ボタンを中央寄せする場合 */
+.markdown-content .btn-center {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    width: fit-content;
+}
+
+/* ボタンを横幅いっぱいにする場合 */
+.markdown-content .btn-full {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* ボタンを並べて配置する場合 */
+.markdown-content .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+    justify-content: center;
+}
+.markdown-content .btn-group .btn {
+    margin: 0;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+    .markdown-content .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+        margin: 6px 2px;
+    }
+    .markdown-content .btn-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    .markdown-content .btn-group .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+/* marked.jsで生成されるコードブロックのスタイル調整 */
+.output pre {
+    margin: 0;
+    border-radius: 6px;
+}
+
+.output code {
+    font-size: 14px;
+}
+
+pre[class*="language-"] {
+    margin: 1em 0;
+    background: #020617 !important;
+}
+
+/* Prismのコードブロック背景色を少々ここらでオーバーライド したいところだけど現実は♪ */
+code[class*="language-"],
+pre[class*="language-"] {
+    background: #020617 !important;
+}
+
+/* コードブロックにタイトルを表示するスタイル */
+.code-block-container {
+    position: relative;
+    margin: 1em 0;
+}
+
+.code-title {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    color: #e2e8f0;
+    padding: 8px 16px;
+    font-size: 0.85em;
+    font-weight: 600;
+    border-radius: 6px 6px 0 0;
+    margin: 0;
+    border-left: 3px solid #3b82f6;
+    font-family: 'Segoe UI', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.code-title + pre[class*="language-"] {
+    margin-top: 0 !important;
+    border-radius: 0 0 6px 6px !important;
+}
+
+/* 言語別のタイトル色 */
+.code-title.json { border-left-color: #f59e0b; }
+.code-title.javascript { border-left-color: #eab308; }
+.code-title.css { border-left-color: #06b6d4; }
+.code-title.html { border-left-color: #ef4444; }
+
+/* インラインコードも同じ背景色に */
+:not(pre) > code[class*="language-"] {
+    background: #020617 !important;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
