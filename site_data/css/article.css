@@ -1,39 +1,8 @@
 /* projects.cssの基本スタイルを流用 */
-html{height: 100%;min-height: 100%;}
 
 [id] {
   /* 固定ヘッダーの高さ(60px) + 少しの余白(20px) = 80px */
   scroll-margin-top: 150px; 
-}
-
-body{display: flex;flex-direction:column;min-height: 100%;}
-.contents{
-    display: flex;
-    gap:30px;
-    margin:0px clamp(30px, calc((100vw - 1000px) * 0.33 + 30px), 150px);
-    animation: fadeInUp 1s ease-out 0.3s both;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(50px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.main-content {
-    position:relative;
-    width: 100%;
-    max-width: 100%;
-    padding: 30px;
-    background: linear-gradient(145deg, #0F172A, #1E293B);
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-    border: 3px ridge rgba(16, 185, 129, 0.8);
 }
 
 /* 読み込みスピン演出 */

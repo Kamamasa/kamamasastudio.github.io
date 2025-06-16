@@ -159,8 +159,8 @@ async def transcribe(self, file_path):
 なんてのも表示できたりする。
 
 ## プレーヤー
-<a href="/site_data/html/projects.html" target="_self">ProjectのMusicタブ</a>を開くとわかるが、音源データをプレビューする部分を単純にaudio controlで指定するのではなく、JavaScriptで記述してある。  
-のだが、正直ここに関しては基本パーツをClaude君にぶん投げて細かい修正をしているだけなので読解しきれていない。(怠惰)  
+<a href="/site_data/html/projects.html" target="_self">ProjectのMusicタブ</a>を開くとわかるが、音源データをプレビューする部分を単純にaudio controlで指定するのではなく、JavaScriptで記述してサイトの雰囲気との親和性を上げてある。  
+のだが、正直ここに関しては基本部分をClaude君にぶん投げて細かい修正だけをしているだけなので読解しきれていない。(怠惰)  
 ので書けることは少ない。  
 一応演出としてシーク機能を使用中に音量を25%まで一時的に落としてより演出的なシークを再現したりもしているが割とどうでもいいことなので割愛。
 

@@ -471,7 +471,7 @@ footer {
 }
 
 /*レスポンシブ配置*/
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 600px) {
     .contents {
         flex-direction: column;
     }
@@ -698,7 +698,7 @@ footer {
     position: absolute;
     bottom: -5px;
     left: 0;
-    width: 500px;
+    width: clamp(150px, 50%, 400px); /* 幅を可変に、最大幅は親要素の50%か400px */  
     height: 3px;
     background: linear-gradient(90deg, rgba(255, 0, 0, 1.0), rgba(255, 100, 100, 0.6), rgba(255, 150, 150, 0.3), rgba(255, 200, 200, 0.0));
     border-radius: 1px;
@@ -990,4 +990,25 @@ footer {
 }
 .fa-q:hover{
     background-color: #00d90d;
+}
+
+.warn-text{
+    display: none;
+    color: #DDD;
+    padding: 0px 10px;
+}
+/*レスポンシブ配置*/
+@media screen and (max-width: 600px) {
+    .main-banner-content {
+        margin:10px;
+    }
+    .top-header{
+        height: 100px;
+    }
+    .spacer {
+        height: 50px;
+    }
+    .warn-text{
+        display: block;
+    }
 }
