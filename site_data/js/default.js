@@ -1,3 +1,28 @@
+//ヘッダーフッター紐づけ処理
+fetch("/site_data/html/part_header.html")
+  .then((response) => response.text())
+  .then((data) => document.querySelector("#header").innerHTML = data);
+fetch("/site_data/html/part_footer.html")
+  .then((response) => response.text())
+  .then((data) => document.querySelector("#footer").innerHTML = data);
+
+  function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// スクロール位置に応じてTOPボタンの表示を調整
+window.addEventListener('scroll', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    if (window.pageYOffset > 300) {
+        backToTopBtn.style.opacity = '1';
+    } else {
+        backToTopBtn.style.opacity = '0.7';
+    }
+});
+
 //固定ヘッダー表示処理
 const fixedHeader = document.querySelector('.fixed-header');
 const pageHeader = document.querySelector('.top-header');
