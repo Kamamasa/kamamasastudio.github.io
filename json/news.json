@@ -1,5 +1,11 @@
 [
     {
+        "category":"INFORMATION",
+        "date":  "2025-06-15",
+        "description":"データ更新に伴い、再度二次、三次利用のガイドラインを書き直しました。<br>二次三次利用の可能性のある方、ご一読お願いします。",
+        "link": "/site_data/html/usage.html"
+    },
+    {
         "category": "RELEASE",
         "date": "2025-05-31",
         "description": "新曲「幻想」を公開",

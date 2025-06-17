@@ -384,6 +384,138 @@ width: 100%;
     pointer-events: auto;
 }
 
+/* フッター */
+footer {
+    position:relative;
+    background-color: #111;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    bottom: 0;
+    margin-top: 0;
+}
+
+.footer_text {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.footer_link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.footer_link a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.footer_link a:hover {
+    color: #4CAF50;
+}
+
+/* このサイトについてのホバー表示 */
+.about-tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    margin-bottom: 8px;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #333;
+}
+
+.about-tooltip:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+/* TOPに戻るボタン - フォルダタブ風 */
+.back-to-top {
+    position: absolute;
+    top: -25px;
+    right: 20px;
+    background-color: #111;
+    color: #ccc;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    width: 60px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.3);
+}
+
+.back-to-top:hover {
+    background-color: #222;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 -4px 8px rgba(0,0,0,0.4);
+}
+
+.back-to-top:active {
+    transform: translateY(0);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .footer_link {
+        gap: 20px;
+    }
+    
+    .back-to-top {
+        width: 50px;
+        height: 22px;
+        font-size: 10px;
+        right: 15px;
+    }
+    
+    .tooltip {
+        font-size: 12px;
+        padding: 10px 12px;
+        max-width: 200px;
+        white-space: normal;
+    }
+}
+
+
+
 .spacer {
     display: block;
     height: 100px;
@@ -392,15 +524,11 @@ width: 100%;
     display: block;
     height: 2000px;
 }
-
-/* フッター */
-footer {
-    background-color: #111;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    bottom: 0;
+.spacer_full
+{
+    flex-grow: 1;
 }
+
 
 
 
@@ -471,7 +599,7 @@ footer {
 }
 
 /*レスポンシブ配置*/
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 600px) {
     .contents {
         flex-direction: column;
     }
@@ -698,7 +826,7 @@ footer {
     position: absolute;
     bottom: -5px;
     left: 0;
-    width: 500px;
+    width: clamp(150px, 50%, 400px); /* 幅を可変に、最大幅は親要素の50%か400px */  
     height: 3px;
     background: linear-gradient(90deg, rgba(255, 0, 0, 1.0), rgba(255, 100, 100, 0.6), rgba(255, 150, 150, 0.3), rgba(255, 200, 200, 0.0));
     border-radius: 1px;
@@ -990,4 +1118,25 @@ footer {
 }
 .fa-q:hover{
     background-color: #00d90d;
+}
+
+.warn-text{
+    display: none;
+    color: #DDD;
+    padding: 0px 10px;
+}
+/*レスポンシブ配置*/
+@media screen and (max-width: 600px) {
+    .main-banner-content {
+        margin:10px;
+    }
+    .top-header{
+        height: 100px;
+    }
+    .spacer {
+        height: 50px;
+    }
+    .warn-text{
+        display: block;
+    }
 }
